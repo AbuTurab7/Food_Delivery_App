@@ -1,5 +1,6 @@
 import argon2 from "argon2";
 import { User } from "../models/user.model.js";
+import jwt from "jsonwebtoken";
 
 export const findUserByEmail = async (email) => {
   return User.findOne({ email });
@@ -16,14 +17,14 @@ export const createUser = async ({
   email,
   password,
   mobile,
-  role,
+  // role,
 }) => {
   return User.create({
     fullname,
     email,
     password,
     mobile,
-    role,
+    // role,
   });
 };
 
@@ -31,7 +32,7 @@ export const generateToken = async (userId) => {
   return jwt.sign({userId} , process.env.JWT_KEY , {expiresIn: "7d"} );
 };
 
-export const authenticateUser = async ({ userId }) => {
+export const authenticateUser = async ({  res , userId }) => {
 
     const token = await generateToken(userId);
 
@@ -42,7 +43,6 @@ export const authenticateUser = async ({ userId }) => {
         httpOnly: true
     })
 
-    return res.redirect("/");
 }
 
 

@@ -25,5 +25,5 @@ export const registrationValidation = loginValidation.extend({
   fullname: nameSchema,
    mobile: z.string()
   .regex(/^\d{10}$/, "Invalid mobile number"),
-  role: z.string(),
+  // role: z.string(),
 });

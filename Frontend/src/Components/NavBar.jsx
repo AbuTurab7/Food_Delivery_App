@@ -27,6 +27,7 @@ import toast from "react-hot-toast";
 import "./offCanvas.css";
 import "./navbar.css";
 import { Coordinates } from "./ContextApi";
+import SignInCanvas from "./SignInCanvas";
 
 export default function NavBar() {
   const cart = useSelector((state) => state.cartSlice.cartItems);
@@ -39,6 +40,11 @@ export default function NavBar() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleAddress = (data) => setAddress(data);
+
+  /*  State for SignIncanvas */
+  const [showSignIn, setShowSignIn] = useState(false);
+  const handleCloseSignIn = () => setShowSignIn(false);
+  const handleShowSignIn = () => setShowSignIn(true);
 
   /*  State for Hamburger Offcanvas */
   const [showMenu, setShowMenu] = useState(false);
@@ -77,16 +83,16 @@ export default function NavBar() {
     }
   }
 
-  const popover = (
-    <Popover id="popover-basic">
-      <Popover.Header as="h3"></Popover.Header>
-      <Popover.Body>
-        <button id="logOutBtn" onClick={handleLogOut}>
-          Log out
-        </button>
-      </Popover.Body>
-    </Popover>
-  );
+  // const popover = (
+  //   <Popover id="popover-basic">
+  //     <Popover.Header as="h3"></Popover.Header>
+  //     <Popover.Body>
+  //       <button id="logOutBtn" onClick={handleLogOut}>
+  //         Log out
+  //       </button>
+  //     </Popover.Body>
+  //   </Popover>
+  // );
 
   return (
     <>
@@ -156,7 +162,17 @@ export default function NavBar() {
                     <p>Help</p>
                   </div>
                 </Nav.Link>
-                {user ? (
+                <Nav.Link>
+                  <div className="sign-in-container" onClick={handleShowSignIn}>
+                    <IoHelpBuoyOutline />
+                    <p>Sign in</p>
+                  </div>
+                </Nav.Link>
+                <SignInCanvas
+              show={showSignIn}
+              handleClose={handleCloseSignIn}
+            />
+                {/* {user ? (
                   <OverlayTrigger
                     trigger="click"
                     placement="bottom"
@@ -176,7 +192,7 @@ export default function NavBar() {
                       <p>Sign In</p>
                     </div>
                   </Nav.Link>
-                )}
+                )} */}
                 <Nav.Link href="/restaurant/cart">
                   <div className="cart-container">
                     <p>[{cart.length}] Cart</p>
@@ -207,9 +223,18 @@ export default function NavBar() {
             <Nav.Link href="*">
               <IoHelpBuoyOutline /> Help
             </Nav.Link>
-
+            <Nav.Link>
+                  <div className="sign-in-container" onClick={handleShowSignIn}>
+                    <IoHelpBuoyOutline />
+                    <p>Sign in</p>
+                  </div>
+                </Nav.Link>
+                {/* <SignInCanvas
+              show={showSignIn}
+              handleClose={handleCloseSignIn}
+            /> */}
             {/* ✅ Sign In / User */}
-            {user ? (
+            {/* {user ? (
               <Nav.Link onClick={handleLogOut}>
                 <IoPersonOutline /> {user} (Logout)
               </Nav.Link>
@@ -217,7 +242,7 @@ export default function NavBar() {
               <Nav.Link onClick={handleAuth}>
                 <IoPersonOutline /> Sign In
               </Nav.Link>
-            )}
+            )} */}
 
             {/* ✅ Cart */}
             <Nav.Link href="/restaurant/cart">

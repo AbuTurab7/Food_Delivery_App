@@ -14,18 +14,23 @@ import {
 // post
 export const postRegistration = async (req, res) => {
   try {
-    const { data, error } = registrationValidation.safeParse(req.body);
-    if (error) {
-      const errors = error.issues[0].message;
-      req.flash("errors", errors);
-      return res.redirect("/register");
+    const { success, data , error } = registrationValidation.safeParse(req.body);
+
+    if (!success) {
+      const fieldErrors = {};
+      error.issues.forEach((issue) => {
+        fieldErrors[issue.path[0]] = issue.message;
+      });
+      return res.status(400).json({ errors: fieldErrors });
     }
-    const { fullname, email, password, mobile, role } = data;
+
+    const { fullname, email, password, mobile } = data;
     let user = await findUserByEmail(email);
+
     if (user) {
-      req.flash("errors", "User already exist!");
-      return res.redirect("/login");
+      return res.status(400).json({ message: "User already exists!" });
     }
+
     const hashedPassword = await getHashedPassword(password);
 
     user = await createUser({
@@ -33,12 +38,15 @@ export const postRegistration = async (req, res) => {
       email,
       password: hashedPassword,
       mobile,
-      role,
+      // role,
     });
 
-    await authenticateUser({ userId: user._id });
+    await authenticateUser({  res, userId: user._id });
+
+    return res.status(201).json({ message: "Registration successful!", user });
   } catch (error) {
     console.error("Post registration error : ", error);
+    res.status(500).json({ message: "Server error. Please try again." });
   }
 };
 
@@ -48,38 +56,39 @@ export const postLogin = async (req, res) => {
   try {
     const { data, error } = loginValidation.safeParse(req.body);
     if (error) {
-      const errors = error.issues[0].message;
-      req.flash("errors", errors);
-      return res.redirect("/login");
+      console.log("verification error : " , error);
+      return res.status(400).json({ message: error.issues[0].message });
+      // const errors = error.issues[0].message;
+      // req.flash("errors", errors);
+      // return res.redirect("/login");
     }
     const { email, password } = data;
 
     const user = await findUserByEmail(email);
     if (!user) {
-      req.flash("errors", "User does not exist!");
-      return res.redirect("/register");
+      return res.status(400).json({ message: "User does not exists!" });
     }
 
-    const isPasswordSame = await comparePassword(hashedPassword, password);
+    const isPasswordSame = await comparePassword(user.password , password);
 
     if (!isPasswordSame) {
-      req.flash("errors", "Invalid email or password!");
-      return res.redirect("/login");
+       return res.status(400).json({ message: "Invalid email or password!" });
     }
 
-    await authenticateUser({ userId: user._id });
+    await authenticateUser({ res , userId: user._id });
+    return res.status(201).json({ message: "Login successful!", user });
   } catch (error) {
     console.error("Post login error : ", error);
   }
 };
 
-// getLogout
-export const getLogout = async (req, res) => {
-  try {
-    res.clearCookie("accessToken");
-    req.flash("success", "Logout successfully!");
-    return res.redirect("/login");
-  } catch (error) {
-    console.error(" logout error : ", error);
-  }
-};
+// // getLogout
+// export const getLogout = async (req, res) => {
+//   try {
+//     res.clearCookie("accessToken");
+//     req.flash("success", "Logout successfully!");
+//     return res.redirect("/login");
+//   } catch (error) {
+//     console.error(" logout error : ", error);
+//   }
+// };

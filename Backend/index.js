@@ -27,7 +27,7 @@ app.use(flash());
 
 // app.use(verifyAuthentication);
 
-app.use("/auth", authRouter);
+app.use("/api/auth", authRouter);
 
 app.get("/" , (req , res) => {
     res.send("Hello World! how");

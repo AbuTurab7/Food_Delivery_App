@@ -7,7 +7,9 @@ import { Routes, Route } from "react-router";
 import { useState } from "react";
 import { Coordinates } from "./ContextApi";
 
+export const serverURL = "http://localhost:3000";
 export default function Home() {
+  
   const [coords, setCoords] = useState(() => ({
     lat: 26.7617171 ,
     lng: 80.88564749999999,

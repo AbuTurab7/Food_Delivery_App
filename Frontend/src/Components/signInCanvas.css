@@ -1,0 +1,129 @@
+.signIn-offcanvas.custom-offcanvas {
+  width: 38% !important;
+}
+
+.signIn-offcanvas .offCanvas-main-container {
+  margin: 3% auto;
+  width: 85%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.signIn-offcanvas .header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.signIn-offcanvas .form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+.signIn-offcanvas input , .signIn-button {
+  font-size: 14px;
+  height: 55px;
+  padding: 14px 40px 14px 20px;
+  width: 100%;
+}
+.signIn-offcanvas .signIn-button {
+  font-size: 16px;
+  color: white;
+  background-color: #FF5200;
+  border: none;
+  cursor: pointer;
+}
+.signIn-offcanvas .signIn-button:hover {
+  background-color: #f24f04;
+}
+.signIn-offcanvas .password-input-container {
+  width: 100%;
+  position: relative;
+}
+.signIn-offcanvas .password-input-container svg {
+  position: absolute;
+  top: 38%;
+  right: 5%;
+  background-color: transparent;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+
+/* Large desktops */
+@media (min-width: 1600px) {
+  .signIn-offcanvas.custom-offcanvas {
+    width: 40% !important;
+  }
+  .signIn-offcanvas .offCanvas-main-container {
+    width: 80%;
+  }
+  .signIn-offcanvas input {
+    font-size: 14px;
+    height: 60px;
+  }
+  .signIn-offcanvas .signIn-button {
+    font-size: 16px;
+  }
+}
+
+/* Medium laptops */
+@media (min-width: 1200px) and (max-width: 1599px) {
+  .signIn-offcanvas.custom-offcanvas {
+    width: 38% !important;
+  }
+  .signIn-offcanvas .offCanvas-main-container {
+    width: 85%;
+  }
+  
+}
+
+/* Tablets */
+@media (max-width: 1199px) {
+  .signIn-offcanvas.custom-offcanvas {
+    width: 60% !important;
+  }
+  .signIn-offcanvas .offCanvas-main-container {
+    width: 90%;
+  }
+  .signIn-offcanvas input {
+    font-size: 14px;
+    height: 55px;
+  }
+}
+
+/* Small tablets / landscape mobiles */
+@media (max-width: 992px) {
+  .signIn-offcanvas.custom-offcanvas {
+    width: 60% !important;
+  }
+  .signIn-offcanvas .offCanvas-main-container {
+    width: 95%;
+  }
+}
+
+/* Mobiles */
+@media (max-width: 768px) {
+  .signIn-offcanvas.custom-offcanvas {
+    width: 100% !important;
+  }
+  .signIn-offcanvas .offCanvas-main-container {
+    width: 100%;
+  }
+  .signIn-offcanvas input {
+    font-size: 13px;
+    height: 50px;
+  }
+}
+
+/* Very small mobiles */
+@media (max-width: 480px) {
+  .signIn-offcanvas.custom-offcanvas {
+    width: 100% !important;
+  }
+  .signIn-offcanvas .offCanvas-main-container {
+    width: 100%;
+    margin: 2% auto;
+  }
+}
