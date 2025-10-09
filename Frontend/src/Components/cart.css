@@ -1,0 +1,228 @@
+/* Main container */
+.cart-main-container {
+  width: 90%;
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  box-shadow: 0 0 15px rgba(2, 6, 12, 0.2);
+  border-radius: 10px;
+  background-color: #fff;
+}
+
+/* Restaurant details */
+.cart-rest-details-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.cart-rest-details-container img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  border-radius: 5px;
+}
+
+.cart-rest-detail {
+  padding-bottom: 8px;
+  border-bottom: 2px solid black;
+}
+
+/* Cart items */
+.cart-item-container {
+  padding: 10px 0;
+  border-bottom: dotted 2px rgba(2, 6, 12, 0.2);
+}
+
+.cart-details-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.cart-item-name,
+.cart-item-btn-container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+#cart-item-btn {
+  background-color: white;
+  border: none;
+  font-size: 14px;
+  color: #ff5200;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+/* Clear button */
+.cart-clear-btn-container {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 0;
+}
+
+/* Bill details */
+.cart-bill-container {
+  padding: 10px;
+  margin-top: 10px;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+}
+
+.item-total,
+.delivery-fee,
+.gst-charges,
+.to-pay {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.delivery-fee,
+.gst-charges {
+  border-bottom: 1px solid rgba(2, 6, 12, 0.2);
+  padding: 5px 0;
+  color: #02060cb3;
+}
+
+.to-pay {
+  font-weight: 600;
+  padding-top: 5px;
+}
+
+/* Order buttons */
+.orderBtnContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.orderBtnContainer button {
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+#orderBtn {
+  color: white;
+  background-color: #1ba672;
+}
+
+#Sign-in-Btn {
+  color: orangered;
+  border: 2px solid orangered;
+  background-color: transparent;
+}
+
+/* Empty cart */
+.empty-cart-main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 90%;
+  max-width: 500px;
+  margin: 30px auto;
+  padding: 20px;
+}
+
+.cart-image-container {
+  width: 200px;
+  height: 200px;
+  background-image: url(https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto/2xempty_cart_yfxml0);
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+}
+
+.see-restaurant-near-me {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #ff5200;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 5px;
+  text-decoration: none !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .cart-main-container {
+    width: 95%;
+    padding: 15px;
+  }
+
+  .cart-rest-details-container img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .cart-item-name p,
+  .cart-item-btn-container p {
+    font-size: 13px;
+  }
+
+  .item-total,
+  .delivery-fee,
+  .gst-charges,
+  .to-pay {
+    font-size: 13px;
+  }
+
+  #cart-item-btn {
+    padding: 4px 8px;
+    font-size: 13px;
+  }
+
+  .orderBtnContainer button {
+    padding: 8px 15px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cart-rest-details-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .cart-rest-detail {
+    border-bottom: none;
+  }
+
+  .cart-details-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .cart-item-btn-container {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .cart-bill-container {
+    padding: 8px;
+  }
+
+  .empty-cart-main-container {
+    width: 95%;
+  }
+
+  .cart-image-container {
+    width: 150px;
+    height: 150px;
+  }
+}

@@ -1,0 +1,128 @@
+/* Location Offcanvas ONLY */
+.location-offcanvas.custom-offcanvas {
+  width: 38% !important;  /* default laptop/desktop */
+}
+
+.location-offcanvas .offCanvas-main-container {
+  margin: 3% auto;
+  width: 85%;
+}
+
+/* Input */
+.location-offcanvas #offCanvas-input {
+  font-size: 14px;
+  height: 55px;
+  padding: 14px 40px 14px 20px;
+  width: 100%;
+}
+
+/* Cancel button */
+.location-offcanvas #cancel-btn {
+  position: absolute;
+  top: 13%;
+  right: 13%;
+  background-color: transparent;
+  border: none;
+  font-size: 15px;
+  color: #FF5200;
+  cursor: pointer;
+}
+
+/* Results list */
+.location-offcanvas .offCanvas-result-container {
+  margin-top: 5%;
+  padding: 20px;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.location-offcanvas .offCanvas-result-container ul {
+  padding: 0;
+}
+
+.location-offcanvas .offCanvas-result-container ul li {
+  display: flex;
+  gap: 12px;
+  padding: 10px 0;
+  cursor: pointer;
+}
+
+.location-offcanvas .result-description {
+  width: 100%;
+  border-bottom: dotted 2px rgba(2, 6, 12, 0.2);
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+}
+
+.location-offcanvas #cityName {
+  font-size: 16px;
+  color: #02060C;
+}
+
+.location-offcanvas #cityName:hover {
+  color: #FF5200;
+}
+
+/* Secondary text */
+.location-offcanvas .secondary-text {
+  font-size: 13px;
+  color: #02060C80;
+}
+
+.loader {
+  width: 50px;
+  margin-top: 30%;
+  margin-left: 45%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: 
+    radial-gradient(farthest-side,#ffa516 94%,#0000) top/8px 8px no-repeat,
+    conic-gradient(#0000 30%,#ffa516);
+  -webkit-mask: radial-gradient(farthest-side,#0000 calc(100% - 8px),#000 0);
+  animation: l13 1s infinite linear;
+}
+@keyframes l13{ 
+  100%{transform: rotate(1turn)}
+}
+
+/* Large desktops */
+@media (min-width: 1600px) {
+  .location-offcanvas.custom-offcanvas { width: 40% !important; }
+  .location-offcanvas .offCanvas-main-container { width: 80%; }
+  .location-offcanvas #offCanvas-input { font-size: 14px; height: 60px; }
+  .location-offcanvas #cancel-btn { font-size: 16px; }
+}
+
+/* Medium laptops */
+@media (min-width: 1200px) and (max-width: 1599px) {
+  .location-offcanvas.custom-offcanvas { width: 38% !important; }
+  .location-offcanvas .offCanvas-main-container { width: 85%; }
+  .location-offcanvas #offCanvas-input { font-size: 14px; height: 58px; }
+}
+
+/* Tablets */
+@media (max-width: 1199px) {
+  .location-offcanvas.custom-offcanvas { width: 60% !important; }
+  .location-offcanvas .offCanvas-main-container { width: 90%; }
+  .location-offcanvas #offCanvas-input { font-size: 14px; height: 55px; }
+}
+
+/* Small tablets / landscape mobiles */
+@media (max-width: 992px) {
+  .location-offcanvas.custom-offcanvas { width: 60% !important; }
+  .location-offcanvas .offCanvas-main-container { width: 95%; }
+}
+
+/* Mobiles */
+@media (max-width: 768px) {
+  .location-offcanvas.custom-offcanvas { width: 80% !important; }
+  .location-offcanvas .offCanvas-main-container { width: 100%; }
+  .location-offcanvas #offCanvas-input { font-size: 13px; height: 50px; }
+  .location-offcanvas #cancel-btn { font-size: 14px; }
+}
+
+/* Very small mobiles */
+@media (max-width: 480px) {
+  .location-offcanvas.custom-offcanvas { width: 90% !important; }
+  .location-offcanvas .offCanvas-main-container { width: 100%; margin: 2% auto; }
+}

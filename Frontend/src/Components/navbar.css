@@ -1,0 +1,349 @@
+/* Navbar Base */
+.navbar {
+  height: 80px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Logo + Location Container */
+.logo-drop-container {
+  display: flex;
+  align-items: center;
+  margin-left: 40px;
+  width: 35%;
+}
+
+.logo-container {
+  color: white;
+  height: 48px;
+  width: 48px;
+  border-radius: 13px;
+  background-color: orangered;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.1s ease-in;
+}
+.logo-container:hover {
+  scale: 1.1;
+}
+.logo-container svg {
+  color: white;
+  font-size: 32px;
+}
+
+/* Dropdown */
+#dropdown-split-basic {
+  margin-left: 40px;
+}
+#arrow {
+  font-size: 35px;
+  color: orangered;
+}
+.navbar-address-container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+#navbar-address {
+  font-size: 13px;
+  color: #02060CB3;
+}
+#dropdown-split-basic::after {
+  display: none;
+}
+#navbar-other:hover {
+  color: orangered;
+}
+
+/* Nav Links */
+.navLink-container {
+  width: 100%;
+  margin-left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+}
+.navLink-container .nav-link {
+  display: flex;
+  align-items: center;
+  margin: 0 10px;
+  color: #333;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+.navLink-container .nav-link svg {
+  font-size: 22px;
+}
+.corporate-container,
+.offer-container,
+.search-container,
+.help-container,
+.sign-in-container,
+.cart-container {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.corporate-container:hover,
+.offer-container:hover,
+.search-container:hover,
+.help-container:hover,
+.sign-in-container:hover,
+.cart-container:hover {
+  color: orangered;
+}
+p {
+  margin: 0;
+  font-size: 15px;
+}
+#logOutBtn {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+/* Navbar Base - make it fixed */
+.navbar {
+  position: fixed; /* Fix navbar at top */
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  z-index: 1000;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+  background-color: white; /* Ensure navbar has a background */
+  display: flex;
+  align-items: center;
+}
+
+/* Adjust logo + address container */
+.logo-drop-container {
+  display: flex;
+  align-items: center;
+  margin-left: 40px;
+  width: 35%;
+}
+
+/* Navbar links container */
+.navLink-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Hamburger container for mobile */
+.hamburger-container {
+  font-size: 26px;
+  color: #333;
+  cursor: pointer;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 914px) {
+  .navbar {
+    height: auto;
+    padding: 8px 12px;
+    flex-direction: column;
+  }
+
+  .logo-drop-container {
+    margin-left: 0;
+    width: auto;
+    justify-content: flex-start;
+    gap: 6px;
+  }
+
+  #navbar-address {
+    display: none;
+  }
+
+  .navLink-container {
+    justify-content: flex-end;
+    gap: 14px;
+  }
+
+  .corporate-container,
+  .offer-container,
+  .search-container,
+  .help-container {
+    display: none;
+  }
+}
+
+/* Hamburger menu only on mobile */
+.hamburger-container {
+  font-size: 26px;
+  color: #333;
+  cursor: pointer;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+@media (min-width: 915px) {
+  .hamburger-container {
+    display: none; /* hide on desktop */
+  }
+}
+
+/* Offcanvas styles */
+.offcanvas {
+  width: 250px !important;
+}
+
+.offcanvas .nav-link {
+  font-size: 16px;
+  padding: 12px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #333;
+  font-weight: 500;
+}
+
+.offcanvas .nav-link:hover {
+  color: orangered;
+}
+
+/* ------------------------------
+   RESPONSIVE STYLES
+--------------------------------*/
+
+/* Tablet (≤1024px) */
+@media (max-width: 1024px) {
+  .logo-drop-container {
+    margin-left: 20px;
+    width: auto;
+  }
+
+  #dropdown-split-basic {
+    margin-left: 20px;
+  }
+
+  .navLink-container {
+    justify-content: flex-start;
+    padding-left: 10px;
+  }
+
+  .navLink-container .nav-link {
+    margin: 0 6px;
+    font-size: 14px;
+  }
+}
+
+/* Mobile & Tablet (≤800px) */
+@media (max-width: 914px) {
+  .navbar {
+    height: auto;
+    padding: 8px 12px;
+  }
+
+  /* Logo + Address left side */
+  .logo-drop-container {
+    margin-left: 0;
+    width: auto;
+    justify-content: flex-start;
+    gap: 6px;
+  }
+
+  .logo-container {
+    height: 36px;
+    width: 36px;
+  }
+
+  .logo-container svg {
+    font-size: 24px;
+  }
+
+  /* Only show "Other" + arrow, hide address */
+  #navbar-address {
+    display: none;
+  }
+
+  #navbar-other {
+    font-size: 13px;
+  }
+
+  /* USER + CART → Right corner */
+  .navLink-container {
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 100%;
+    gap: 14px;
+  }
+
+  .sign-in-container,
+  .cart-container {
+    font-size: 14px;
+  }
+
+  .sign-in-container svg,
+  .cart-container svg {
+    font-size: 20px;
+  }
+
+  /* Hide big nav links on topbar */
+  .corporate-container,
+  .offer-container,
+  .search-container,
+  .help-container {
+    display: none;
+  }
+
+  /* Let Bootstrap collapse (hamburger menu) handle hidden links */
+  .navbar-collapse {
+    background-color: #fff;
+    padding: 10px;
+  }
+
+  .navbar-collapse .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 0;
+    font-size: 15px;
+  }
+
+  .navbar-collapse .nav-link:hover {
+    color: orangered;
+  }
+}
+
+/* Extra Small (≤480px) */
+@media (max-width: 480px) {
+  .navbar {
+    padding: 6px 10px;
+  }
+
+  .logo-container {
+    height: 32px;
+    width: 32px;
+  }
+
+  .logo-container svg {
+    font-size: 22px;
+  }
+
+  .navbar-address-container {
+    flex-direction: row;
+    align-items: center;
+    gap: 3px;
+  }
+
+  #navbar-other {
+    font-size: 12px;
+  }
+
+  .sign-in-container p,
+  .cart-container p {
+    font-size: 13px;
+  }
+}

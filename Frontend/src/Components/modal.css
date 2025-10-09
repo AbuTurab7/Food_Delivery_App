@@ -1,0 +1,19 @@
+.custom-modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.custom-modal .modal-content{
+    border-radius: 20px;
+    width: 75%; 
+    padding: 10px;
+}
+.custom-modal .modal-header{
+    border-bottom: 1px solid rgba(2, 6, 12, 0.15);
+}
+.modal-body-ul{
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

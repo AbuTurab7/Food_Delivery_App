@@ -1,0 +1,120 @@
+.Dishes-Container{
+    width: 100%;
+    margin: auto;
+    overflow-x: hidden;
+    padding-bottom: 50px;
+}
+.dishes-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5px;
+}
+.dishes-arrow-container{
+    margin-left: 10px;
+    font-size: 30px;
+}
+.dishes-arrow-container svg{
+    margin: 0 6px 0 6px;
+    background-color: rgb(224, 219, 219);
+    border-radius: 50%;
+}
+.dishes-img-container{
+    display: flex;
+    /* justify-content: center; */
+    flex-direction: row;
+    margin: 0 25px 0 25px;
+    transition-duration: 1000ms;
+    gap: 15px;
+}
+.dishes-inside-container {
+  overflow-x: hidden;
+  padding: 0 25px;
+}
+
+.disabled{
+    color: gray;    
+}
+.restaurantSlide-inside-container {
+  overflow-x: hidden;
+  position: relative;
+  padding: 0 25px;
+  margin-right: 32px;
+}
+
+.restaurantSlide-card-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  transition: transform 1s ease;
+  
+}
+.restaurantSlide-card-container{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    padding-top: 10px;
+    margin: 0 25px 0 25px;
+    transition-duration: 1000ms;
+}
+.restaurantSlide-card{
+    flex: 0 0 23%; 
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+.restaurantSlide-card:hover{
+    transform: scale(0.90);
+}
+.restaurantSlide-card p {
+    font-size: 13.5px;
+}
+.restaurantSlide-details-container{
+    padding: 12px;
+}
+.restaurantSlide-img-container {
+    position: relative;
+}
+.restaurantSlide-img-container img{
+    border-radius: 20px;
+    object-fit: cover;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);   
+}
+.gradient-container{
+    width: 100%;
+    height: 40%;
+   position: absolute;
+   border-bottom-left-radius: 20px;
+   border-bottom-right-radius: 20px;
+   top: 60%;
+   background: #070808;
+background: linear-gradient(360deg,rgba(7, 8, 8, 1) 0%, rgba(96, 96, 96, 0) 100%);
+    
+}
+#discont-tag{
+    position: absolute;
+    bottom: 3%;
+    color: white;
+    font-weight: 700;
+    margin-left: 10px;
+    font-size: 20px;
+}
+#rating{
+    font-size: 14px;
+    color: black;
+}
+#rating svg{
+    font-size: 25px;
+    margin-bottom: 5px;
+}
+.cuisines-container{
+    display: -webkit-box;
+  -webkit-line-clamp: 1;    
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.restaurants-list-cards{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}

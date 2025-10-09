@@ -1,0 +1,202 @@
+/* Main Filter Container */
+.filter-main-container {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.filter-inside-container {
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+} /* Individual Filter Button */
+.filter-container {
+  border: 1px solid rgba(158, 156, 156, 0.452);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 10px;
+  box-shadow: 0 0 2px rgba(156, 156, 156, 0.386);
+  cursor: pointer;
+  position: relative;
+  text-align: center;
+  font-size: 14px;
+}
+.Active {
+  background-color: rgba(216, 216, 216, 0.455);
+  border: 1px solid black;
+}
+.crossIcon {
+  display: none;
+}
+.Active .crossIcon {
+  display: block;
+} /* Modal Styling */
+.filter-modal .modal-content {
+  max-height: 450px;
+}
+.filter-modal .modal-body {
+  padding: 0px 15px 0px 20px;
+  overflow-x: hidden;
+}
+.modal-body-container {
+  display: flex;
+  position: relative;
+  flex-wrap: wrap;
+}
+.modal-click-marker {
+  position: absolute;
+  left: -2px;
+  top: 0px;
+  height: 55px;
+  width: 10px;
+  background-color: orangered;
+  border-radius: 5px;
+}
+.filter-modal-buttons-container {
+  border-right: 1px solid rgba(173, 173, 173, 0.312);
+  width: 30%;
+}
+.filter-modal-button {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px;
+  cursor: pointer;
+}
+.filter-modal-button p {
+  font-size: 18px;
+  color: #02060cbf;
+}
+.filter-modal-data-container {
+  width: 70%;
+  padding: 10px 30px;
+  max-height: 378px;
+  overflow-y: auto;
+}
+.filter-modal-sort-data {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.filter-modal-item-list {
+  display: flex;
+  gap: 5px;
+  cursor: pointer;
+} /* Modal Apply/Clear Buttons */
+.modal-filter-btn {
+  box-shadow: 0 0 10px rgba(156, 156, 156, 0.562);
+  background-color: white;
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  height: 55px;
+  position: absolute;
+  width: 100%;
+  z-index: 100;
+  bottom: 0%;
+  right: 0;
+  align-items: center;
+}
+#clear-filter-btn {
+  background-color: white;
+  border: none;
+  font-size: 16px;
+  color: #ff5200;
+}
+#apply-filter-btn {
+  background-color: #ff5200;
+  border: none;
+  font-size: 16px;
+  color: white;
+  border-radius: 10px;
+  padding: 8px 40px;
+  margin-right: 20px;
+}
+.hide {
+  display: none;
+} /* Filter Slider Images */
+.filter-container-slider {
+  background-color: gray;
+  height: 10px;
+  width: 34px;
+  border-radius: 10px;
+  margin: 0 5px;
+}
+.filter-container img {
+  position: absolute;
+  border-radius: 8px;
+  transition: 0.4s ease;
+}
+.filter-container img.off {
+  left: 13px;
+}
+.filter-container img.On {
+  left: 31px;
+} /* Responsive Media Queries */ /* Tablets (768px - 1199px) */
+@media (max-width: 1199px) {
+  .filter-inside-container {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .filter-container {
+    font-size: 13px;
+    padding: 6px 8px;
+  }
+  .filter-modal-buttons-container {
+    width: 40%;
+  }
+  .filter-modal-data-container {
+    width: 60%;
+    padding: 10px 15px;
+  }
+  #apply-filter-btn {
+    padding: 6px 30px;
+    font-size: 14px;
+  }
+  #clear-filter-btn {
+    font-size: 14px;
+  }
+} /* Mobile (less than 767px) */
+@media (max-width: 767px) {
+  .filter-inside-container {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .filter-container {
+    font-size: 12px;
+    padding: 5px 8px;
+    justify-content: center;
+  }
+  .filter-modal-buttons-container {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid rgba(173, 173, 173, 0.312);
+  }
+  .filter-modal-data-container {
+    width: 100%;
+    padding: 10px 10px;
+    max-height: 300px;
+  }
+  .modal-body-container {
+    flex-direction: column;
+  }
+  .modal-filter-btn {
+    flex-direction: column;
+    gap: 10px;
+    height: auto;
+    padding: 10px;
+    position: relative;
+  }
+  #apply-filter-btn {
+    width: 100%;
+    padding: 8px 0;
+    font-size: 14px;
+    margin: 0;
+  }
+  #clear-filter-btn {
+    width: 100%;
+    font-size: 14px;
+    margin: 0;
+  }
+}

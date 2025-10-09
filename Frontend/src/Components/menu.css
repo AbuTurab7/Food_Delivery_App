@@ -1,0 +1,122 @@
+.restaurant-menu-container {
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+}
+
+/* Menu Header */
+.restaurant-menu-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #02060c99;
+  letter-spacing: 3px;
+  margin: 5px 0 10px 0;
+}
+
+.restaurant-menu-header #left {
+  transform: rotate(135deg);
+}
+
+.restaurant-menu-header #right {
+  transform: rotate(-45deg);
+}
+
+/* Search Bar */
+.restaurant-menu-search-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 10px;
+  background-color: #02060c0d;
+  width: 100%;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.restaurant-menu-search-container .restaurant-menu-search {
+  width: 58%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #02060c99;
+}
+
+/* Filter Container */
+.restaurant-menu-filter-container {
+  border-bottom: 1px solid #02060c24;
+  margin-top: 2px;
+}
+
+/* Menu Card Container */
+.restaurant-menu-card-container {
+  margin-top: 10px;
+}
+
+/* ------------------------------
+   RESPONSIVE STYLES
+--------------------------------*/
+
+/* Tablet ≤1024px */
+@media (max-width: 1024px) {
+  .restaurant-menu-container {
+    padding: 0 15px;
+  }
+
+  .restaurant-menu-search-container .restaurant-menu-search {
+    width: 70%;
+    
+  }
+  
+  .restaurant-menu-header {
+    gap: 6px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 1024px) and (min-width: 768px) {
+  .restaurant-menu-search {
+    padding-left: 80px;
+  }
+}
+
+
+/* Mobile ≤768px */
+@media (max-width: 768px) {
+  .restaurant-menu-container {
+    padding: 0 10px;
+  }
+
+  .restaurant-menu-header {
+    gap: 4px;
+    font-size: 12px;
+  }
+
+  .restaurant-menu-search-container .restaurant-menu-search {
+    width: 100%;
+    font-size: 12px;
+  }
+}
+
+/* Extra Small ≤480px */
+@media (max-width: 480px) {
+  .restaurant-menu-container {
+    padding: 0 8px;
+  }
+
+  .restaurant-menu-header {
+    gap: 3px;
+    font-size: 11px;
+  }
+
+  .restaurant-menu-search-container .restaurant-menu-search {
+    width: 100%;
+    font-size: 11px;
+  }
+
+  .restaurant-menu-search-container {
+    padding: 8px;
+  }
+}

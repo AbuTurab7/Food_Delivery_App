@@ -1,0 +1,176 @@
+/* ------------------- RESTAURANT FOOTER ------------------- */
+.restaurant_footer_container {
+  background-color: #f0f0f5;
+  padding: 40px 0 20px 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.restaurant-footer-inside-container {
+  width: 71%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* DOWNLOAD SECTION */
+.restaurant-footer-Download-details {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.GoogleApple-container a img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* DETAILS SECTION */
+.restaurant-footer-details-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.restaurant-footer-details-logo {
+  flex: 1 1 250px;
+}
+
+.logoAndName {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.restaurant-footer-details-container ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0;
+}
+
+.restaurant-footer-details-container li {
+  list-style: none;
+  font-size: 14px;
+  color: #02060C99;
+}
+
+.restaurant-footer-details-container p {
+  font-size: 17px;
+  color: #02060CEB;
+  margin: 0;
+}
+
+/* CITIES DROPDOWN */
+.citiesDropdown {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 3px 8px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.citiesDropdown svg {
+  height: 20px;
+  width: 20px;
+  transition: transform 0.3s ease;
+}
+
+.down {
+  transform: rotate(180deg);
+}
+
+/* CONTACT & LIFE SECTIONS */
+.restaurant-footer-details-contact,
+.restaurant-footer-details-life {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.restaurant-footer-details-contact .legal {
+  margin-top: 20px;
+}
+
+.restaurant-footer-details-life .links {
+  margin-bottom: 20px;
+}
+
+.restaurant-footer-details-life .links .logos {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+/* ------------------- RESPONSIVE ------------------- */
+
+/* Tablets: 768px - 1199px */
+@media (max-width: 1199px) {
+  .restaurant-footer-inside-container {
+    width: 90%;
+    gap: 30px;
+  }
+  .restaurant-footer-details-container {
+    gap: 25px;
+  }
+  .restaurant-footer-details-contact .legal,
+  .restaurant-footer-details-life .links {
+    margin: 0;
+  }
+}
+
+/* Mobile: < 768px */
+@media (max-width: 767px) {
+  .restaurant-footer-Download-details {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .restaurant-footer-details-container {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .restaurant-footer-details-logo,
+  .restaurant-footer-details-company,
+  .restaurant-footer-details-contact,
+  .restaurant-footer-details-available,
+  .restaurant-footer-details-life {
+    flex: 1 1 100%;
+  }
+
+  .citiesDropdown {
+    width: 100%;
+  }
+
+  .restaurant-footer-details-life .links .logos {
+    justify-content: flex-start;
+    gap: 15px;
+  }
+}
+
+/* Small mobile: < 480px */
+@media (max-width: 480px) {
+  .restaurant-footer-details-container p {
+    font-size: 15px;
+  }
+  .restaurant-footer-details-container li {
+    font-size: 13px;
+  }
+  .restaurant-footer-Download-details p {
+    font-size: 18px;
+    text-align: center;
+  }
+  .restaurant-footer-details-life .links .logos img {
+    height: 14px;
+    width: 14px;
+  }
+}
