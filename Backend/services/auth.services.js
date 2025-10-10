@@ -1,6 +1,7 @@
 import argon2 from "argon2";
 import { User } from "../models/user.model.js";
 import jwt from "jsonwebtoken";
+import crypto from "crypto";
 
 export const findUserByEmail = async (email) => {
   return User.findOne({ email });
@@ -17,14 +18,14 @@ export const createUser = async ({
   email,
   password,
   mobile,
-  // role,
+  role,
 }) => {
   return User.create({
     fullname,
     email,
     password,
     mobile,
-    // role,
+    role,
   });
 };
 
@@ -43,6 +44,10 @@ export const authenticateUser = async ({  res , userId }) => {
         httpOnly: true
     })
 
+}
+
+export const generateOtp = async () => {
+  return crypto.randomInt(100000 , 1000000).toString();
 }
 
 

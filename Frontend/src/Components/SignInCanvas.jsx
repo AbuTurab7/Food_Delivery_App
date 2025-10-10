@@ -11,6 +11,7 @@ export default function SignInCanvas({ show, handleClose }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [mobile, setMobile] = useState("");
+  const [role, setRole] = useState("user");
   const [otp, setOtp] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -24,12 +25,21 @@ export default function SignInCanvas({ show, handleClose }) {
     setEmail("");
     setPassword("");
     setMobile("");
+    setRole("user");
     setOtp("");
     setNewPassword("");
     setConfirmPassword("");
     setForgotPasswordMode("");
     setError(null);
   };
+
+  // const forgotPasswordModeResetFeild = () =>{
+  //   setFullname("");
+  //   setPassword("");
+  //   setMobile("");
+  //   setRole("user");
+  //   setError(null);
+  // }
 
   // const handleError = (data) => {
   //   if (data.errors) {
@@ -53,7 +63,7 @@ export default function SignInCanvas({ show, handleClose }) {
         : `${serverURL}/api/auth/registration`;
       const body = login
         ? { email, password }
-        : { fullname, email, password, mobile };
+        : { fullname, email, password, mobile, role };
 
       const res = await fetch(url, {
         method: "POST",
@@ -77,15 +87,89 @@ export default function SignInCanvas({ show, handleClose }) {
       resetFields();
     } catch (err) {
       console.error(`Error during ${login ? "Login" : "Registration"}:`, err);
-      alert("Something went wrong!");
+      setError(`There's a issue in ${login ? "Login" : "Sing up"}`);
     }
   };
 
-  const handleVerifyOtp = async () => {
-    console.log("Otp verified succesfully");
+  const handleSendOtp = async (e) => {
+    e.preventDefault();
+    setError(null);
+    setOtp("");
+    try {
+      const res = await fetch(`${serverURL}/api/auth/send-otp`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+        credentials: "include",
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.message);
+        return;
+      }
+
+      toast.success(data.message);
+      setForgotPasswordMode(2);
+    } catch (error) {
+      console.error(`Error in sending OTP : `, error);
+      setError("There's a issue in sending OTP");
+    }
   };
-  const handleResetPassword = async () => {
-    console.log("Reset password succesfully");
+
+  const handleVerifyOtp = async (e) => {
+    e.preventDefault();
+    setError(null);
+
+    try {
+      const res = await fetch(`${serverURL}/api/auth/verify-otp`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, otp }),
+        credentials: "include",
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.message);
+        return;
+      }
+
+      toast.success(data.message);
+      setForgotPasswordMode(3);
+    } catch (error) {
+      console.error(`Error in OTP verification : `, error);
+      setError("There's a issue in OTP verification");
+    }
+  };
+
+  const handleResetPassword = async (e) => {
+    e.preventDefault();
+    setError(null);
+
+    try {
+      const res = await fetch(`${serverURL}/api/auth/reset-password`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, newPassword, confirmPassword }),
+        credentials: "include",
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.message);
+        return;
+      }
+
+      toast.success(data.message);
+      resetFields();
+    } catch (error) {
+      console.error(`Error in resetting password : `, error);
+      setError("There's a issue in resetting password");
+    }
   };
 
   const getTitle = () => {
@@ -101,13 +185,7 @@ export default function SignInCanvas({ show, handleClose }) {
               onChange={(e) => setEmail(e.target.value)}
               required
             />
-            <button
-              className="signIn-button"
-              onClick={() => {
-                setForgotPasswordMode(2);
-                handleSendOtp();
-              }}
-            >
+            <button className="signIn-button" onClick={handleSendOtp}>
               Send OTP
             </button>
           </>
@@ -123,13 +201,10 @@ export default function SignInCanvas({ show, handleClose }) {
               onChange={(e) => setOtp(e.target.value)}
               required
             />
-            <button
-              className="signIn-button"
-              onClick={() => {
-                setForgotPasswordMode(3);
-                handleVerifyOtp();
-              }}
-            >
+            <p className="resend-btn" onClick={handleSendOtp}>
+              Resend ?
+            </p>
+            <button className="signIn-button" onClick={handleVerifyOtp}>
               Verify OTP
             </button>
           </>
@@ -159,13 +234,7 @@ export default function SignInCanvas({ show, handleClose }) {
               />
               {confirmPassword.length > 0 && checkShowPass()}
             </div>
-            <button
-              className="signIn-button"
-              onClick={() => {
-                setForgotPasswordMode("");
-                handleResetPassword();
-              }}
-            >
+            <button className="signIn-button" onClick={handleResetPassword}>
               Reset password
             </button>
           </>
@@ -288,20 +357,28 @@ export default function SignInCanvas({ show, handleClose }) {
 
             {login && !forgotPasswordMode && (
               <p
-                style={{
-                  textAlign: "right",
-                  fontSize: "12px",
-                  color: "#FF5200",
-                  cursor: "pointer",
-                  margin: "5px 0",
-                }}
+                className="resend-btn"
                 onClick={() => {
                   setForgotPasswordMode(1);
                   setError(null);
                 }}
               >
-                Forgot Password?
+                Forgot Password ?
               </p>
+            )}
+
+            {!login && !forgotPasswordMode && (
+              <div className="select-container">
+                <select
+                  name="role"
+                  id="role"
+                  onChange={(e) => setRole(e.target.value)}
+                >
+                  <option value="user">User</option>
+                  <option value="owner">Owner</option>
+                  <option value="deliveryBoy">Delivery Boy</option>
+                </select>
+              </div>
             )}
 
             {!forgotPasswordMode && (
@@ -312,11 +389,17 @@ export default function SignInCanvas({ show, handleClose }) {
 
             {forgotPasswordMode && getTitle()}
 
-            {!forgotPasswordMode && (
+            {forgotPasswordMode === 1 ? (
               <p style={{ color: "#02060C", fontSize: "12px" }}>
-                By {login ? "clicking on Login" : "creating an account"}, I
-                accept the Terms & Conditions & Privacy Policy
+                An OTP will be send to your email account.
               </p>
+            ) : (
+              !forgotPasswordMode && (
+                <p style={{ color: "#02060C", fontSize: "12px" }}>
+                  By {login ? "clicking on Login" : "creating an account"}, I
+                  accept the Terms & Conditions & Privacy Policy
+                </p>
+              )
             )}
           </div>
         </div>

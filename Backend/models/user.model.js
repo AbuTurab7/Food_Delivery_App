@@ -17,19 +17,20 @@ import mongoose from "mongoose";
         type: Number,
         required: true
     },
-    // role:{
-    //     type: String,
-    //     required: true,
-    //     enum:["user", "owner", "deliveryBoy"]
-    // },
+    role:{
+        type: String,
+        required: true,
+        enum:["user", "owner", "deliveryBoy"]
+    },
     resetOtp:{
-        type: String()
+        type: String,
     },
     isOtpVarified:{
-        type:Boolean
+        type: Boolean,
+        default: false,
     },
     otpExpires:{
-        type: Date
+        type: Date,
     },
 } , {timestamps: true});
 
