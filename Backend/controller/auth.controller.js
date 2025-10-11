@@ -8,6 +8,7 @@ import {
   getHashedPassword,
 } from "../services/auth.services.js";
 import {
+  googleAuthValidation,
   loginValidation,
   registrationValidation,
   resetPasswordValidation,
@@ -173,5 +174,40 @@ export const postResetPassword = async (req, res) => {
   } catch (error) {
     console.error(" OTP reset password error : ", error);
     return res.status(500).json({ message: "Reset password failed!" });
+  }
+};
+
+// google auth page
+// sign up with google
+export const postGoogleAuth = async (req, res) => {
+  let islogin = false;
+  try {
+    const { data, error } = googleAuthValidation.safeParse(req.body);
+    if (error) {
+      return res.status(400).json({ message: error.issues[0].message });
+    }
+
+    const { fullname, email, mobile, role } = data;
+    let user = await findUserByEmail(email);
+    if (user) {
+       islogin = true;
+      await authenticateUser({ res, userId: user._id });
+      return res.status(200).json({ message: "Login successful!", user });
+    }
+
+    user = await createUser({
+      fullname,
+      email,
+      mobile,
+      role,
+    });
+
+    await authenticateUser({ res, userId: user._id });
+
+    return res.status(201).json({ message: "Signed up successful!", user });
+  } catch (error) {
+    console.error(" Google auth error : ", error);
+    return res.status(500).json({ message: `${loginError ? "Login" : "Sign up"} with Google failed!`,
+    });
   }
 };

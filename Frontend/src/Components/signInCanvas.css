@@ -22,6 +22,7 @@
 }
 .signIn-offcanvas input,
 .signIn-button,
+.google-btn,
 select {
   font-size: 14px;
   height: 55px;
@@ -79,6 +80,17 @@ select {
   color: #ff5200;
   cursor: pointer;
   margin: 5px 0;
+}
+.google-btn {
+  font-size: 16px;
+  color: black;
+  background-color: white;
+  border: 1px solid black;
+  cursor: pointer;
+}
+#googleLogo{
+  margin-right: 5px;
+  font-size: 20px;
 }
 
 /* Large desktops */

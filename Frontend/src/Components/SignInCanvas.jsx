@@ -4,9 +4,13 @@ import { FaEyeSlash, FaEye } from "react-icons/fa";
 import "./signInCanvas.css";
 import { serverURL } from "./Home";
 import toast from "react-hot-toast";
+import { signInWithPopup } from "firebase/auth";
+import { auth, provider } from "../config/firebaseAuth";
+import { FcGoogle } from "react-icons/fc";
 
 export default function SignInCanvas({ show, handleClose }) {
   const [login, setLogin] = useState(true); //true
+  const [googleSignIn, setGoogleSignIn] = useState(false); //false
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -78,9 +82,6 @@ export default function SignInCanvas({ show, handleClose }) {
         setError(data.message);
         return;
       }
-      // if (!res.ok) return handleError(data);
-      // setMessage(login ? "Login successful!" : "Registration successful!");
-      // setMessage(data.message);
 
       toast.success(data.message);
       handleClose();
@@ -172,7 +173,62 @@ export default function SignInCanvas({ show, handleClose }) {
     }
   };
 
+  const handleGoogleAuth = async (e) => {
+    e.preventDefault();
+    setError(null);
+    try {
+      const result = await signInWithPopup(auth, provider);
+      if (!result) setError("Google server error");
+      console.log("user details : ", result);
+      console.log("Name : ", result.user.displayName);
+      console.log("Email : ", result.user.email);
+
+      const res = await fetch(`${serverURL}/api/auth/google`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fullname: result.user.displayName,
+          email: result.user.email,
+          mobile: mobile || "",
+          role: role || "user",
+        }),
+        credentials: "include",
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.message);
+        return;
+      }
+      console.log(data);
+
+      toast.success(data.message);
+      resetFields();
+      handleClose();
+    } catch (error) {
+      console.error("Google sign-in error:", error.code, error.message);
+      setError("There's a issue in Google Server");
+    }
+  };
+
+
   const getTitle = () => {
+    if (googleSignIn) return "Google Sign Up";
+
+    switch (forgotPasswordMode) {
+      case 1:
+        return "Forget Password";
+      case 2:
+        return "Verify OTP";
+      case 3:
+        return "Reset Password";
+      default:
+        return login ? "Login" : "Sign Up";
+    }
+  };
+
+  const getInputs = () => {
     switch (forgotPasswordMode) {
       case 1:
         return (
@@ -265,18 +321,7 @@ export default function SignInCanvas({ show, handleClose }) {
         <div className="offCanvas-main-container">
           <div className="header-container">
             <div className="details">
-              <p style={{ color: "#02060C", fontSize: "30px" }}>
-                {login
-                  ? forgotPasswordMode === 1
-                    ? "Forget Password"
-                    : forgotPasswordMode === 2
-                    ? "Verify OTP"
-                    : forgotPasswordMode === 3
-                    ? "Reset Password"
-                    : "Login"
-                  : "Sign Up"}
-              </p>
-
+              <p style={{ color: "#02060C", fontSize: "30px" }}>{getTitle()}</p>
               <p>
                 or{" "}
                 <span
@@ -287,6 +332,7 @@ export default function SignInCanvas({ show, handleClose }) {
                   }}
                   onClick={() => {
                     setLogin(!login);
+                    setGoogleSignIn(false);
                     resetFields();
                   }}
                 >
@@ -309,7 +355,7 @@ export default function SignInCanvas({ show, handleClose }) {
           {/* {message && <p className="success-msg">{message}</p>} */}
 
           <div className="form-container">
-            {!login && (
+            {!login && !googleSignIn && (
               <input
                 type="text"
                 name="fullname"
@@ -319,7 +365,7 @@ export default function SignInCanvas({ show, handleClose }) {
                 required
               />
             )}
-            {forgotPasswordMode === "" && (
+            {forgotPasswordMode === "" && !googleSignIn && (
               <input
                 type="email"
                 name="email"
@@ -330,7 +376,7 @@ export default function SignInCanvas({ show, handleClose }) {
               />
             )}
 
-            {!forgotPasswordMode && (
+            {!forgotPasswordMode && !googleSignIn && (
               <div className="password-input-container">
                 <input
                   type={showPass ? "text" : "password"}
@@ -381,13 +427,32 @@ export default function SignInCanvas({ show, handleClose }) {
               </div>
             )}
 
-            {!forgotPasswordMode && (
+            {!forgotPasswordMode && !googleSignIn ? (
               <button onClick={handleSubmit} className="signIn-button">
                 {login ? "Login" : "Sign Up"}
               </button>
+            ) : (
+              !forgotPasswordMode && (
+                <button className="signIn-button" onClick={handleGoogleAuth}>
+                  Sign up with google 
+                </button>
+              )
             )}
 
-            {forgotPasswordMode && getTitle()}
+            {!forgotPasswordMode && !googleSignIn && login && (
+              <button className="google-btn" onClick={handleGoogleAuth} ><FcGoogle id="googleLogo" /> Log in with google</button>
+            )}
+
+            {!forgotPasswordMode && !login && !googleSignIn && (
+              <button
+                onClick={() => setGoogleSignIn(true)}
+                className="google-btn"
+              ><FcGoogle  id="googleLogo"/>
+                Sign up with google
+              </button>
+            )}
+
+            {forgotPasswordMode && getInputs()}
 
             {forgotPasswordMode === 1 ? (
               <p style={{ color: "#02060C", fontSize: "12px" }}>
