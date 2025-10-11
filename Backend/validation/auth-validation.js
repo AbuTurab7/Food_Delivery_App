@@ -25,15 +25,12 @@ export const loginValidation = z.object({
 export const registrationValidation = loginValidation.extend({
   fullname: nameSchema,
 
-  mobile: z.string().regex(/^\d{10}$/, "Invalid mobile number!"),
-
   role: z.string(),
 });
 
 export const googleAuthValidation = z.object({
   fullname: nameSchema,
   email: emailSchema,
-  mobile: z.string().regex(/^\d{10}$/, "Invalid mobile number!"),
   role: z.string(),
 })
 

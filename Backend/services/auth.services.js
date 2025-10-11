@@ -3,6 +3,7 @@ import { User } from "../models/user.model.js";
 import jwt from "jsonwebtoken";
 import crypto from "crypto";
 
+
 export const findUserByEmail = async (email) => {
   return User.findOne({ email });
 };
@@ -29,13 +30,19 @@ export const createUser = async ({
   });
 };
 
-export const generateToken = async (userId) => {
-  return jwt.sign({userId} , process.env.JWT_KEY , {expiresIn: "7d"} );
+export const generateToken = async ({ userId, fullname , email , mobile , role }) => {
+  return jwt.sign({ userId , fullname , email , mobile , role } , process.env.JWT_KEY , {expiresIn: "7d"} );
 };
 
-export const authenticateUser = async ({  res , userId }) => {
+export const authenticateUser = async ({  res , user }) => {
 
-    const token = await generateToken(userId);
+    const token = await generateToken({
+      userId: user._id,
+      fullname: user.fullname,
+      email: user.email,
+      mobile: user.mobile,
+      role: user.role,
+    });
 
     res.cookie("accessToken" , token , {
         secure: false,
@@ -43,11 +50,13 @@ export const authenticateUser = async ({  res , userId }) => {
         maxAge:7*24*60*60*1000,
         httpOnly: true
     })
-
+    console.log(token);
 }
 
 export const generateOtp = async () => {
   return crypto.randomInt(100000 , 1000000).toString();
 }
 
-
+export const verifyToken = async (token) => {
+  return jwt.verify(token , process.env.JWT_KEY);
+}

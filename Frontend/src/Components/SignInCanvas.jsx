@@ -7,6 +7,8 @@ import toast from "react-hot-toast";
 import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../config/firebaseAuth";
 import { FcGoogle } from "react-icons/fc";
+import { useDispatch, useSelector } from "react-redux";
+import { addUser } from "../Utilities/authSlice";
 
 export default function SignInCanvas({ show, handleClose }) {
   const [login, setLogin] = useState(true); //true
@@ -20,9 +22,13 @@ export default function SignInCanvas({ show, handleClose }) {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPass, setShowPass] = useState(false);
-  // const [message, setMessage] = useState(null);
+  const [isGoogleLogin, setIsGoogleLogin] = useState(false);
   const [error, setError] = useState(null);
   const [forgotPasswordMode, setForgotPasswordMode] = useState(""); //""
+
+  const userData = useSelector((state) => state.authSlice.userData);
+
+  const dispatch = useDispatch();
 
   const resetFields = () => {
     setFullname("");
@@ -56,9 +62,19 @@ export default function SignInCanvas({ show, handleClose }) {
   //   }
   // };
 
+  const validateMobile = () => {
+    if (!/^\d{10}$/.test(mobile)) {
+      setError("Please enter a valid 10-digit mobile number");
+      return false;
+    }
+    setError(null);
+    return true;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
+    if (!login && !validateMobile()) return;
     // setMessage(null);
 
     try {
@@ -82,6 +98,8 @@ export default function SignInCanvas({ show, handleClose }) {
         setError(data.message);
         return;
       }
+
+      dispatch(addUser(data.user));
 
       toast.success(data.message);
       handleClose();
@@ -176,12 +194,11 @@ export default function SignInCanvas({ show, handleClose }) {
   const handleGoogleAuth = async (e) => {
     e.preventDefault();
     setError(null);
+    if (!isGoogleLogin && !validateMobile()) return;
+
     try {
       const result = await signInWithPopup(auth, provider);
       if (!result) setError("Google server error");
-      console.log("user details : ", result);
-      console.log("Name : ", result.user.displayName);
-      console.log("Email : ", result.user.email);
 
       const res = await fetch(`${serverURL}/api/auth/google`, {
         method: "POST",
@@ -201,8 +218,8 @@ export default function SignInCanvas({ show, handleClose }) {
         setError(data.message);
         return;
       }
-      console.log(data);
 
+      dispatch(addUser(data.user));
       toast.success(data.message);
       resetFields();
       handleClose();
@@ -211,7 +228,6 @@ export default function SignInCanvas({ show, handleClose }) {
       setError("There's a issue in Google Server");
     }
   };
-
 
   const getTitle = () => {
     if (googleSignIn) return "Google Sign Up";
@@ -240,6 +256,7 @@ export default function SignInCanvas({ show, handleClose }) {
               placeholder="Email"
               onChange={(e) => setEmail(e.target.value)}
               required
+              autoComplete="off"
             />
             <button className="signIn-button" onClick={handleSendOtp}>
               Send OTP
@@ -256,6 +273,7 @@ export default function SignInCanvas({ show, handleClose }) {
               placeholder="OTP"
               onChange={(e) => setOtp(e.target.value)}
               required
+              autoComplete="off"
             />
             <p className="resend-btn" onClick={handleSendOtp}>
               Resend ?
@@ -276,6 +294,7 @@ export default function SignInCanvas({ show, handleClose }) {
                 placeholder="New Password"
                 onChange={(e) => setNewPassword(e.target.value)}
                 required
+                autoComplete="off"
               />
               {newPassword.length > 0 && checkShowPass()}
             </div>
@@ -287,6 +306,7 @@ export default function SignInCanvas({ show, handleClose }) {
                 placeholder="Confirm Password"
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
+                autoComplete="off"
               />
               {confirmPassword.length > 0 && checkShowPass()}
             </div>
@@ -363,6 +383,7 @@ export default function SignInCanvas({ show, handleClose }) {
                 placeholder="Name"
                 onChange={(e) => setFullname(e.target.value)}
                 required
+                autoComplete="off"
               />
             )}
             {forgotPasswordMode === "" && !googleSignIn && (
@@ -373,6 +394,7 @@ export default function SignInCanvas({ show, handleClose }) {
                 placeholder="Email"
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                autoComplete="off"
               />
             )}
 
@@ -385,6 +407,7 @@ export default function SignInCanvas({ show, handleClose }) {
                   placeholder="Password"
                   onChange={(e) => setPassword(e.target.value)}
                   required
+                  autoComplete="off"
                 />
                 {password.length > 0 && checkShowPass()}
               </div>
@@ -398,6 +421,7 @@ export default function SignInCanvas({ show, handleClose }) {
                 placeholder="Mobile number"
                 onChange={(e) => setMobile(e.target.value)}
                 required
+                autoComplete="off"
               />
             )}
 
@@ -434,20 +458,29 @@ export default function SignInCanvas({ show, handleClose }) {
             ) : (
               !forgotPasswordMode && (
                 <button className="signIn-button" onClick={handleGoogleAuth}>
-                  Sign up with google 
+                  Sign up with google
                 </button>
               )
             )}
 
             {!forgotPasswordMode && !googleSignIn && login && (
-              <button className="google-btn" onClick={handleGoogleAuth} ><FcGoogle id="googleLogo" /> Log in with google</button>
+              <button
+                className="google-btn"
+                onClick={(e) => {
+                  setIsGoogleLogin(true);
+                  handleGoogleAuth(e);
+                }}
+              >
+                <FcGoogle id="googleLogo" /> Log in with google
+              </button>
             )}
 
             {!forgotPasswordMode && !login && !googleSignIn && (
               <button
                 onClick={() => setGoogleSignIn(true)}
                 className="google-btn"
-              ><FcGoogle  id="googleLogo"/>
+              >
+                <FcGoogle id="googleLogo" />
                 Sign up with google
               </button>
             )}

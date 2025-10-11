@@ -6,6 +6,9 @@ import "./Home.css";
 import { Routes, Route } from "react-router";
 import { useState } from "react";
 import { Coordinates } from "./ContextApi";
+import { UseGetCurrentUser } from "../hooks/useGetCurrentUser";
+import { useSelector } from "react-redux";
+// import { OwnerDashboard } from "./OwnerDashboard";
 
 export const serverURL = "http://localhost:3000";
 export default function Home() {
@@ -14,15 +17,24 @@ export default function Home() {
     lat: 26.7617171 ,
     lng: 80.88564749999999,
   }));
+  UseGetCurrentUser();
+
+  const userData = useSelector((state) => state.authSlice.userData);
+  console.log(userData);
+  
 
   return (
     <Coordinates.Provider value={{ coords, setCoords }}>
       <NavBar />
       <div className="main-content">
         <Routes>
+           {/* {userData?.role === "owner" && (
+            <Route path="/owner" element={<OwnerDashboard />} />
+          )} */}
           <Route path="/" element={<Body />} />
           <Route path="/restaurant/:id" element={<Restaurant />} />
           <Route path="/restaurant/cart" element={<CartPage />} />
+          
           <Route path="*" element={<h1>Coming Soon...</h1>} />
         </Routes>
       </div>

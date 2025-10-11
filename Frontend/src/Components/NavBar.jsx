@@ -28,10 +28,13 @@ import "./offCanvas.css";
 import "./navbar.css";
 import { Coordinates } from "./ContextApi";
 import SignInCanvas from "./SignInCanvas";
+import { serverURL } from "./Home";
 
 export default function NavBar() {
   const cart = useSelector((state) => state.cartSlice.cartItems);
   const userData = useSelector((state) => state.authSlice.userData);
+
+  console.log(userData);
 
   const [address, setAddress] = useState("Lucknow, Uttar Pradesh 4800");
 
@@ -51,48 +54,53 @@ export default function NavBar() {
   const handleMenuClose = () => setShowMenu(false);
   const handleMenuShow = () => setShowMenu(true);
 
-  const [user, setUser] = useState("");
+  // const [user, setUser] = useState("");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    setUser(userData);
-  }, [userData]);
+  // useEffect(() => {
+  //   setUser(userData);
+  // }, [userData]);
 
-  async function handleAuth() {
-    try {
-      const result = await signInWithPopup(auth, provider);
-      toast.success("Sign In succesfully");
-      const userName = result?.user?.displayName;
-      dispatch(addUser(userName));
-    } catch (error) {
-      console.error("Google sign-in error:", error.code, error.message);
-      alert("Login failed: " + error.message);
-    }
-  }
+  // async function handleAuth() {
+  //   try {
+  //     const result = await signInWithPopup(auth, provider);
+  //     toast.success("Sign In succesfully");
+  //     const userName = result?.user?.displayName;
+  //     dispatch(addUser(userName));
+  //   } catch (error) {
+  //     console.error("Google sign-in error:", error.code, error.message);
+  //     alert("Login failed: " + error.message);
+  //   }
+  // }
 
   async function handleLogOut() {
     try {
       await signOut(auth);
+
+      const res = await fetch(`${serverURL}/api/auth/logout` , {
+        credentials : "include",
+      });
+      const data = await res.json();
       dispatch(removeUser());
-      setUser(null);
+      toast.success(data.message);
       navigate("/");
     } catch (error) {
       console.log(error);
     }
   }
 
-  // const popover = (
-  //   <Popover id="popover-basic">
-  //     <Popover.Header as="h3"></Popover.Header>
-  //     <Popover.Body>
-  //       <button id="logOutBtn" onClick={handleLogOut}>
-  //         Log out
-  //       </button>
-  //     </Popover.Body>
-  //   </Popover>
-  // );
+  const popover = (
+    <Popover id="popover-basic">
+      <Popover.Header as="h3"></Popover.Header>
+      <Popover.Body>
+        <button id="logOutBtn" onClick={handleLogOut}>
+          Log out
+        </button>
+      </Popover.Body>
+    </Popover>
+  );
 
   return (
     <>
@@ -162,16 +170,37 @@ export default function NavBar() {
                     <p>Help</p>
                   </div>
                 </Nav.Link>
-                <Nav.Link>
-                  <div className="sign-in-container" onClick={handleShowSignIn}>
-                    <IoHelpBuoyOutline />
-                    <p>Sign in</p>
-                  </div>
-                </Nav.Link>
-                <SignInCanvas
-              show={showSignIn}
-              handleClose={handleCloseSignIn}
-            />
+                {userData ? (
+                  <OverlayTrigger
+                    trigger="click"
+                    placement="bottom"
+                    overlay={popover}
+                  >
+                    <Nav.Link>
+                      <div className="sign-in-container">
+                        <IoPersonOutline />
+                        <p>{userData.fullname}</p>
+                      </div>
+                    </Nav.Link>
+                  </OverlayTrigger>
+                ) : (
+                  <>
+                    <Nav.Link>
+                      <div
+                        className="sign-in-container"
+                        onClick={handleShowSignIn}
+                      >
+                        <IoPersonOutline />
+                        <p>Sign in</p>
+                      </div>
+                    </Nav.Link>
+                    <SignInCanvas
+                      show={showSignIn}
+                      handleClose={handleCloseSignIn}
+                    />
+                  </>
+                )}
+
                 {/* {user ? (
                   <OverlayTrigger
                     trigger="click"
@@ -224,12 +253,12 @@ export default function NavBar() {
               <IoHelpBuoyOutline /> Help
             </Nav.Link>
             <Nav.Link>
-                  <div className="sign-in-container" onClick={handleShowSignIn}>
-                    <IoHelpBuoyOutline />
-                    <p>Sign in</p>
-                  </div>
-                </Nav.Link>
-                {/* <SignInCanvas
+              <div className="sign-in-container" onClick={handleShowSignIn}>
+                <IoHelpBuoyOutline />
+                <p>Sign in</p>
+              </div>
+            </Nav.Link>
+            {/* <SignInCanvas
               show={showSignIn}
               handleClose={handleCloseSignIn}
             /> */}

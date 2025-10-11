@@ -32,8 +32,8 @@ export const postRegistration = async (req, res) => {
     }
 
     const { fullname, email, password, mobile, role } = data;
-    let user = await findUserByEmail(email);
 
+    let user = await findUserByEmail(email);
     if (user) {
       return res.status(400).json({ message: "User already exists!" });
     }
@@ -48,9 +48,11 @@ export const postRegistration = async (req, res) => {
       role,
     });
 
-    await authenticateUser({ res, userId: user._id });
+    console.log("USer : " , user);
+    
+    await authenticateUser({ res, user });
 
-    return res.status(201).json({ message: "Registration successful!", user });
+    return res.status(201).json({ message: "Sign up successful!", user });
   } catch (error) {
     console.error("Post registration error : ", error);
     res.status(500).json({ message: "Server error. Please try again." });
@@ -78,7 +80,7 @@ export const postLogin = async (req, res) => {
       return res.status(400).json({ message: "Invalid email or password!" });
     }
 
-    await authenticateUser({ res, userId: user._id });
+    await authenticateUser({ res, user });
     return res.status(201).json({ message: "Login successful!", user });
   } catch (error) {
     console.error("Post login error : ", error);
@@ -186,12 +188,12 @@ export const postGoogleAuth = async (req, res) => {
     if (error) {
       return res.status(400).json({ message: error.issues[0].message });
     }
-
-    const { fullname, email, mobile, role } = data;
+    const { mobile } = req.body;
+    const { fullname, email, role } = data;
     let user = await findUserByEmail(email);
     if (user) {
        islogin = true;
-      await authenticateUser({ res, userId: user._id });
+      await authenticateUser({ res, user });
       return res.status(200).json({ message: "Login successful!", user });
     }
 
@@ -202,12 +204,12 @@ export const postGoogleAuth = async (req, res) => {
       role,
     });
 
-    await authenticateUser({ res, userId: user._id });
+    await authenticateUser({ res, user });
 
     return res.status(201).json({ message: "Signed up successful!", user });
   } catch (error) {
     console.error(" Google auth error : ", error);
-    return res.status(500).json({ message: `${loginError ? "Login" : "Sign up"} with Google failed!`,
+    return res.status(500).json({ message: `${islogin ? "Login" : "Sign up"} with Google failed!`,
     });
   }
 };
