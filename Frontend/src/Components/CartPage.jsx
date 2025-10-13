@@ -3,12 +3,14 @@ import "./cart.css";
 import { Link } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteItem, clearCart } from "../Utilities/cartSlice";
-import { addUser } from "../Utilities/authSlice";
-import { signInWithPopup } from "firebase/auth";
-import { auth, provider } from "../config/firebaseAuth";
 import toast from "react-hot-toast";
+import SignInCanvas from "./SignInCanvas";
+import { useState } from "react";
 
 export default function CartPage() {
+  const [showSignIn, setShowSignIn] = useState(false);
+  const handleCloseSignIn = () => setShowSignIn(false);
+  const handleShowSignIn = () => setShowSignIn(true);
   const cart = useSelector((state) => state.cartSlice.cartItems);
   const restInfo = useSelector((state) => state.cartSlice.restInfo);
   const userData = useSelector((state) => state.authSlice.userData);
@@ -29,7 +31,6 @@ export default function CartPage() {
     "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Non_veg_symbol.svg/180px-Non_veg_symbol.svg.png?20131205102929";
 
   function handleRemoveCart(idx) {
-
     if (cart.length > 1) {
       const updatedCart = [...cart];
       updatedCart.splice(idx, 1);
@@ -49,17 +50,6 @@ export default function CartPage() {
     dispatch(clearCart());
   }
 
-  async function handleAuth() {
-    try {
-      const result = await signInWithPopup(auth, provider);
-      toast.success("Sign In succesfully");
-      const userName = result?.user?.displayName;
-      dispatch(addUser(userName));
-    } catch (error) {
-      console.error("Google sign-in error:", error.code, error.message);
-      alert("Login failed: " + error.message);
-    }
-  }
   function handleOrder() {
     toast.success("Order Placed , Thank You!");
     handleClearCart();
@@ -157,9 +147,12 @@ export default function CartPage() {
               Place Order
             </button>
           ) : (
-            <button id="Sign-in-Btn" onClick={handleAuth}>
-              Sign in to place order
-            </button>
+            <>
+              <button id="Sign-in-Btn" onClick={handleShowSignIn}>
+                Sign in to place order
+              </button>
+              <SignInCanvas show={showSignIn} handleClose={handleCloseSignIn} />
+            </>
           )}
         </div>
       </div>

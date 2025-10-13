@@ -13,7 +13,9 @@ export const UseGetCurrentUser = async () => {
                     });
                     const result = await res.json();
                     console.log(result);
-                    dispatch(addUser(result));
+                    if(result.userId){
+                        dispatch(addUser(result));
+                    }
                 } catch (error) {
                     console.log("Error in fetch user : " , error);
                 }

@@ -1,4 +1,4 @@
-export const OwnerDashboard = async () => {
+export const OwnerDashboard = () => {
     return (
         <div>
             <h1>Owner Dashboard</h1>

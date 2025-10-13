@@ -33,7 +33,6 @@ import { serverURL } from "./Home";
 export default function NavBar() {
   const cart = useSelector((state) => state.cartSlice.cartItems);
   const userData = useSelector((state) => state.authSlice.userData);
-
   console.log(userData);
 
   const [address, setAddress] = useState("Lucknow, Uttar Pradesh 4800");
@@ -54,33 +53,17 @@ export default function NavBar() {
   const handleMenuClose = () => setShowMenu(false);
   const handleMenuShow = () => setShowMenu(true);
 
-  // const [user, setUser] = useState("");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   setUser(userData);
-  // }, [userData]);
-
-  // async function handleAuth() {
-  //   try {
-  //     const result = await signInWithPopup(auth, provider);
-  //     toast.success("Sign In succesfully");
-  //     const userName = result?.user?.displayName;
-  //     dispatch(addUser(userName));
-  //   } catch (error) {
-  //     console.error("Google sign-in error:", error.code, error.message);
-  //     alert("Login failed: " + error.message);
-  //   }
-  // }
 
   async function handleLogOut() {
     try {
       await signOut(auth);
 
-      const res = await fetch(`${serverURL}/api/auth/logout` , {
-        credentials : "include",
+      const res = await fetch(`${serverURL}/api/auth/logout`, {
+        credentials: "include",
       });
       const data = await res.json();
       dispatch(removeUser());
@@ -106,7 +89,6 @@ export default function NavBar() {
     <>
       <Navbar expand="lg" className="navbar">
         <Container className="navbarContainer">
-          {/* Left side: Logo + Address */}
           <div className="logo-drop-container">
             <Navbar.Brand href="/">
               <div className="logo-container">
@@ -179,7 +161,7 @@ export default function NavBar() {
                     <Nav.Link>
                       <div className="sign-in-container">
                         <IoPersonOutline />
-                        <p>{userData.fullname}</p>
+                        <p>{userData?.fullname}</p>
                       </div>
                     </Nav.Link>
                   </OverlayTrigger>
@@ -200,28 +182,6 @@ export default function NavBar() {
                     />
                   </>
                 )}
-
-                {/* {user ? (
-                  <OverlayTrigger
-                    trigger="click"
-                    placement="bottom"
-                    overlay={popover}
-                  >
-                    <Nav.Link>
-                      <div className="sign-in-container">
-                        <IoPersonOutline />
-                        <p>{user}</p>
-                      </div>
-                    </Nav.Link>
-                  </OverlayTrigger>
-                ) : (
-                  <Nav.Link onClick={handleAuth}>
-                    <div className="sign-in-container">
-                      <IoPersonOutline />
-                      <p>Sign In</p>
-                    </div>
-                  </Nav.Link>
-                )} */}
                 <Nav.Link href="/restaurant/cart">
                   <div className="cart-container">
                     <p>[{cart.length}] Cart</p>
@@ -252,26 +212,28 @@ export default function NavBar() {
             <Nav.Link href="*">
               <IoHelpBuoyOutline /> Help
             </Nav.Link>
-            <Nav.Link>
-              <div className="sign-in-container" onClick={handleShowSignIn}>
-                <IoHelpBuoyOutline />
-                <p>Sign in</p>
-              </div>
-            </Nav.Link>
-            {/* <SignInCanvas
-              show={showSignIn}
-              handleClose={handleCloseSignIn}
-            /> */}
-            {/* ✅ Sign In / User */}
-            {/* {user ? (
-              <Nav.Link onClick={handleLogOut}>
-                <IoPersonOutline /> {user} (Logout)
-              </Nav.Link>
+
+            {userData ? (
+              <OverlayTrigger
+                trigger="click"
+                placement="bottom"
+                overlay={popover}
+              >
+                <Nav.Link>
+                  <IoPersonOutline /> {userData?.fullname}
+                </Nav.Link>
+              </OverlayTrigger>
             ) : (
-              <Nav.Link onClick={handleAuth}>
-                <IoPersonOutline /> Sign In
-              </Nav.Link>
-            )} */}
+              <>
+                <Nav.Link onClick={handleShowSignIn}>
+                  <IoPersonOutline /> Sign In
+                </Nav.Link>
+                <SignInCanvas
+                  show={showSignIn}
+                  handleClose={handleCloseSignIn}
+                />
+              </>
+            )}
 
             {/* ✅ Cart */}
             <Nav.Link href="/restaurant/cart">
