@@ -1,6 +1,6 @@
 import { FaRegTrashCan } from "react-icons/fa6";
 import "./cart.css";
-import { Link } from "react-router";
+import { Link, Navigate, useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import { useState } from "react";
@@ -19,9 +19,12 @@ import {
 import "leaflet/dist/leaflet.css";
 import "./checkoutPage.css";
 import { setAddress, setLocation } from "../Utilities/mapSlice";
+import { serverURL } from "./Home";
+import { clearCart } from "../Utilities/cartSlice";
 
 export function CheckOutPage() {
-  const [paymentMethod, setPaymentMethod] = useState("cod");
+  const [paymentMode, setPaymentMode] = useState("COD");
+  const [error, setError] = useState(null);
   const cart = useSelector((state) => state.cartSlice.cartItems);
   const restInfo = useSelector((state) => state.cartSlice.restInfo);
   const userData = useSelector((state) => state.authSlice.userData);
@@ -29,6 +32,7 @@ export function CheckOutPage() {
   const { getUserCoordinates } = UseGetCurrentUserLocation();
   const { location, address } = useSelector((state) => state.mapSlice);
   const position = [location.lat, location.lon];
+  const navigate = useNavigate();
 
   let totalPay = 0;
 
@@ -45,7 +49,6 @@ export function CheckOutPage() {
     "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Veg_symbol.svg/180px-Veg_symbol.svg.png?20131205102827";
   const NON_VEG =
     "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Non_veg_symbol.svg/180px-Non_veg_symbol.svg.png?20131205102929";
-
 
   function RecenterMap() {
     if (location.lat && location.lon) {
@@ -73,13 +76,78 @@ export function CheckOutPage() {
       console.error("Error fetching address:", err);
     }
   };
+
+  const placeOrder = async (e) => {
+    e.preventDefault();
+    setError(null);
+    if (!address) {
+      setError("Please enter delivery address");
+      return;
+    }
+    if (cart.length === 0) {
+      setError("Cart is empty");
+      return;
+    }
+
+    const orderPayload = {
+      userId: userData.userId,
+      restaurant: {
+        id: restInfo?.id,
+        name: restInfo?.name,
+        image: restInfo?.cloudinaryImageId,
+        subHeader: restInfo?.aggregatedDiscountInfoV3?.subHeader,
+        rating: restInfo?.avgRating,
+        restAddress: restInfo?.areaName,
+        cuisines: restInfo?.cuisines,
+      },
+      items: cart.map((item) => ({
+        itemId: item.itemId,
+        name: item.name,
+        quantity: item.quantity,
+        price: item?.defaultPrice || item?.price,
+      })),
+      deliveryAddress: {
+        text: address,
+        lat: location.lat,
+        lon: location.lon,
+      },
+      totalAmount: toPay,
+      paymentMode,
+    };
+
+    console.log("Order Payload:", orderPayload);
+
+    try {
+      const res = await fetch(`${serverURL}/api/place-order`, {
+        method: "post",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(orderPayload),
+        credentials: "include",
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.message);
+        return;
+      }
+      console.log(data);
+
+      toast.success(data.message);
+
+      dispatch(clearCart());
+      navigate("/order-placed");
+    } catch (error) {
+      console.error(`Error during placing order:`, error);
+      setError(`There's a issue in placing order`);
+    }
+  };
+
   return (
     <div className="checkout-main-container">
       <div className="checkout-container">
         <h4>Checkout</h4>
         <div className="delivery-detail-container">
           <div className="delivery-detail-header-container">
-            <MdLocationOn style={{color:"orangered"}}/>
+            <MdLocationOn style={{ color: "orangered" }} />
             <p id="checkout-title">Delivery location</p>
           </div>
           <div className="delivery-input-container">
@@ -133,12 +201,21 @@ export function CheckOutPage() {
             </div>
           </div>
         </div>
-        <p id="checkout-title" style={{margin:"10px 0"}}>Payment Method</p>
+        <p id="checkout-title" style={{ margin: "10px 0" }}>
+          Payment Method
+        </p>
         <div className="payment-container">
-          <div className={paymentMethod === "cod" ? "cod-pay-container active-pay" : "cod-pay-container"} onClick={() => setPaymentMethod("cod")}>
+          <div
+            className={
+              paymentMode === "COD"
+                ? "cod-pay-container active-pay"
+                : "cod-pay-container"
+            }
+            onClick={() => setPaymentMode("COD")}
+          >
             <div className="cod-pay-logo-container">
               <div className="cod-pay-logo">
-                <BsCashCoin style={{fontSize:"20px"}}/>
+                <BsCashCoin style={{ fontSize: "20px" }} />
               </div>
             </div>
             <div className="cod-pay-details">
@@ -146,7 +223,14 @@ export function CheckOutPage() {
               <p id="pay-secondary">Pay when your food arrives</p>
             </div>
           </div>
-          <div className={paymentMethod === "online" ? "online-pay-container active-pay" : "online-pay-container"} onClick={() => setPaymentMethod("online")}>
+          <div
+            className={
+              paymentMode === "Online"
+                ? "online-pay-container active-pay"
+                : "online-pay-container"
+            }
+            onClick={() => setPaymentMode("Online")}
+          >
             <div className="online-pay-logo-container">
               <div className="online-pay-logo" id="phone-logo">
                 <FaMobileAlt />
@@ -162,65 +246,68 @@ export function CheckOutPage() {
           </div>
         </div>
         <div className="order-summary-container">
-          <p id="checkout-title" style={{margin:"10px 0"}}>Order Summary</p>
-            {cart?.map((item, i) => (
-              <div className="cart-item-container" key={i}>
-                <div className="cart-details-container">
-                  <div className="cart-item-name">
-                    <img
-                      height={"15px"}
-                      width={"15px"}
-                      src={
-                        item?.itemAttribute?.vegClassifier === "VEG"
-                          ? VEG
-                          : NON_VEG
-                      }
-                      alt="logo"
-                    />
-                    <p style={{ fontSize: "14px", color: "#02060C" }}>
-                      {item?.name}
-                    </p>
-                  </div>
-                  <div className="cart-item-btn-container">
-                    <p style={{ fontSize: "15px", color: "#02060CEB" }}>
-                      {" "}
-                      ₹{(item?.defaultPrice || item?.price) / 100}
-                      <span id="item-quantity-first">x{item.quantity}</span>
-                    </p>
-                  </div>
+          <p id="checkout-title" style={{ margin: "10px 0" }}>
+            Order Summary
+          </p>
+          {cart?.map((item, i) => (
+            <div className="cart-item-container" key={i}>
+              <div className="cart-details-container">
+                <div className="cart-item-name">
+                  <img
+                    height={"15px"}
+                    width={"15px"}
+                    src={
+                      item?.itemAttribute?.vegClassifier === "VEG"
+                        ? VEG
+                        : NON_VEG
+                    }
+                    alt="logo"
+                  />
+                  <p style={{ fontSize: "14px", color: "#02060C" }}>
+                    {item?.name}
+                  </p>
+                </div>
+                <div className="cart-item-btn-container">
+                  <p style={{ fontSize: "15px", color: "#02060CEB" }}>
+                    {" "}
+                    ₹{(item?.defaultPrice || item?.price) / 100}
+                    <span id="item-quantity-first">x{item.quantity}</span>
+                  </p>
                 </div>
               </div>
-            ))}
-            <div className="cart-bill-container">
-              <p style={{ paddingBottom: "10px" }}>Bill Details</p>
-              <div className="item-total">
-                <p>Item Total</p>
-                <p>₹{totalPay}</p>
-              </div>
-              <div className="delivery-fee">
-                <p>Delivery Fee</p>
-                <p>₹40</p>
-              </div>
-              <div className="gst-charges">
-                <p>GST & Other Charges</p>
-                <p>₹{gst.toFixed(2)}</p>
-              </div>
-              <div className="to-pay">
-                <p>TO PAY</p>
-                <p>₹{toPay.toFixed(2)}</p>
-              </div>
             </div>
-            <div className="orderBtnContainer">
-              {paymentMethod === "cod" ? (
-                // <Link to="/restaurant/cart/checkout">
-                  <button id="payment-btn">Place order</button>
-                // </Link>
-              ) : (
-                  <button id="payment-btn">
-                    Pay & place order
-                  </button>
-              )}
+          ))}
+          <div className="cart-bill-container">
+            <p style={{ paddingBottom: "10px" }}>Bill Details</p>
+            <div className="item-total">
+              <p>Item Total</p>
+              <p>₹{totalPay}</p>
             </div>
+            <div className="delivery-fee">
+              <p>Delivery Fee</p>
+              <p>₹40</p>
+            </div>
+            <div className="gst-charges">
+              <p>GST & Other Charges</p>
+              <p>₹{gst.toFixed(2)}</p>
+            </div>
+            <div className="to-pay">
+              <p>TO PAY</p>
+              <p>₹{toPay.toFixed(2)}</p>
+            </div>
+          </div>
+          {error && <p className="error-msg">{error}</p>}
+          <div className="orderBtnContainer">
+            {paymentMode === "COD" ? (
+              // <Link to="/restaurant/cart/checkout">
+              <button id="payment-btn" onClick={placeOrder}>
+                Place order
+              </button>
+            ) : (
+              // </Link>
+              <button id="payment-btn">Pay & place order</button>
+            )}
+          </div>
         </div>
       </div>
     </div>

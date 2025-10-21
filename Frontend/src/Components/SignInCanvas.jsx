@@ -43,24 +43,6 @@ export default function SignInCanvas({ show, handleClose }) {
     setError(null);
   };
 
-  // const forgotPasswordModeResetFeild = () =>{
-  //   setFullname("");
-  //   setPassword("");
-  //   setMobile("");
-  //   setRole("user");
-  //   setError(null);
-  // }
-
-  // const handleError = (data) => {
-  //   if (data.errors) {
-  //     const firstError = Object.values(data.errors)[0];
-  //     setError(firstError);
-  //   } else if (data.message) {
-  //     setError(data.message);
-  //   } else {
-  //     setError("Something went wrong!");
-  //   }
-  // };
 
   const validateMobile = () => {
     if (!/^\d{10}$/.test(mobile)) {

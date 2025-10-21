@@ -1,49 +1,47 @@
-const orderItemSchema = new mongoose.Schema({
-    item: {
-        type : mongoose.Schema.Types.ObjectId,
-        ref: "ItemModel"
-    },
-    price: Number,
-    quantity: Number
-} , { timestamps: true });
+import mongoose from "mongoose";
 
-const orderSchema = new mongoose.schema(
-  {
-    
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      require: true,
-    },
-    paymentMethod: {
-      type: String,
-      enum: ["cod , online"],
-      require: true,
-    },
-
-    deliveryAddress: {
-      text: String,
-      latitude: Number,
-      longitude: Number,
-      require: true,
-    },
-    deliveryAddress: {
-      type: Number,
-      require: true,
-    },
-    restaurant: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "RestaurantModel",
-      require: true,
-    },
-    owner: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      require: true,
-    },
-    orderItem: [orderItemSchema]
+const orderSchema = new mongoose.Schema({
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true
   },
-  { timestamps: true }
-);
+  restaurant: {
+    id: String,   
+    name: String, 
+    image: String,
+    restAddress: String,
+    subHeader: String,
+    rating: String,
+    cuisines: [{
+        type: String,    
+    }], 
+  },
+  items: [
+    {
+      itemId: String,
+      name: String,
+      quantity: Number,
+      price: Number
+    }
+  ],
+  deliveryAddress: {
+    text: String,
+    lat: Number,
+    lon: Number
+  },
+  totalAmount: String,
+  orderStatus: {
+    type: String,
+    enum: ["pending", "accepted", "preparing", "out_for_delivery", "delivered"],
+    default: "pending"
+  },
+  paymentMode: {
+    type: String,
+    enum: ["COD", "Online"],
+    default: "COD"
+  },
+} , {timestamps : true});
 
-export const OrderModel = mongoose.model("OrderModel", orderSchema);
+const Order = mongoose.model("Order", orderSchema);
+export default Order;

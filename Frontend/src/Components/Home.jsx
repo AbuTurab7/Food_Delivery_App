@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import { DeliveryBoy } from "./DeliveryBoy";
 import { OwnerDashboard } from "./OwnerDashboard";
 import { CheckOutPage } from "./CheckOutPage";
+import { OrderPlaced } from "./OrderPlaced";
 
 export const serverURL = "http://localhost:3000";
 export default function Home() {
@@ -35,6 +36,7 @@ export default function Home() {
       <Route path="/restaurant/:id" element={<Restaurant />} />
       <Route path="/restaurant/cart" element={<CartPage />} />
       <Route path="/restaurant/cart/checkout" element={<CheckOutPage />} />
+      <Route path="/order-placed" element={<OrderPlaced />} />
     </>
     );
     

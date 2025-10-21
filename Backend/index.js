@@ -6,6 +6,7 @@ import session from "express-session";
 import flash from "connect-flash";
 import authRouter from "./routes/auth.routes.js";
 import cors from "cors";
+import orderRouter from "./routes/order.routes.js";
 
 dotenv.config();
 const app = express();
@@ -28,6 +29,7 @@ app.use(flash());
 // app.use(verifyAuthentication);
 
 app.use("/api/auth", authRouter);
+app.use("/api", orderRouter);
 
 
 app.get("/" , (req , res) => {
