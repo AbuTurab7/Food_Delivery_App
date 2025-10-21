@@ -4,7 +4,7 @@
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: 999999 !important;
 }
 
 /* Logo + Location Container */
@@ -146,6 +146,19 @@ p {
   align-items: center;
 }
 
+
+
+/* owner navbar  */
+
+.ownerNavbar-main-container{
+  /* border: 2px solid red; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 10%;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+  background-color: white;
+}
 /* Responsive adjustments */
 @media (max-width: 914px) {
   .navbar {

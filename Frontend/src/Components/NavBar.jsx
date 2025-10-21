@@ -53,10 +53,8 @@ export default function NavBar() {
   const handleMenuClose = () => setShowMenu(false);
   const handleMenuShow = () => setShowMenu(true);
 
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
 
   async function handleLogOut() {
     try {
@@ -84,6 +82,34 @@ export default function NavBar() {
       </Popover.Body>
     </Popover>
   );
+
+  if (userData?.role === "owner" || userData?.role === "deliveryBoy") {
+    return (
+      <>
+        <div className="ownerNavbar-main-container">
+          <div className="logo-container">
+            <SiSwiggy />
+          </div>
+          <div className="navLinks-container">
+            <OverlayTrigger
+              trigger="click"
+              placement="bottom"
+              overlay={popover}
+            >
+              <Nav.Link>
+                <div className="sign-in-container">
+                  <IoPersonOutline style={{fontSize:"22px"}}/>
+                  <p style={{fontSize:"16px"}}>{userData?.fullname}</p>
+                </div>
+              </Nav.Link>
+            </OverlayTrigger>
+          </div>
+        </div>
+
+        <Outlet />
+      </>
+    );
+  }
 
   return (
     <>

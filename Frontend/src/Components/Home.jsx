@@ -10,6 +10,7 @@ import { UseGetCurrentUser } from "../hooks/useGetCurrentUser";
 import { useSelector } from "react-redux";
 import { DeliveryBoy } from "./DeliveryBoy";
 import { OwnerDashboard } from "./OwnerDashboard";
+import { CheckOutPage } from "./CheckOutPage";
 
 export const serverURL = "http://localhost:3000";
 export default function Home() {
@@ -33,6 +34,7 @@ export default function Home() {
       <Route path="/" element={<Body />} />
       <Route path="/restaurant/:id" element={<Restaurant />} />
       <Route path="/restaurant/cart" element={<CartPage />} />
+      <Route path="/restaurant/cart/checkout" element={<CheckOutPage />} />
     </>
     );
     

@@ -2,7 +2,7 @@ import { FaRegTrashCan } from "react-icons/fa6";
 import "./cart.css";
 import { Link } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteItem, clearCart } from "../Utilities/cartSlice";
+import { deleteItem, increaseQuantity , decreaseQuantity , clearCart } from "../Utilities/cartSlice";
 import toast from "react-hot-toast";
 import SignInCanvas from "./SignInCanvas";
 import { useState } from "react";
@@ -19,7 +19,7 @@ export default function CartPage() {
   let totalPay = 0;
 
   for (let i = 0; i < cart.length; i++) {
-    totalPay = totalPay + (cart[i]?.defaultPrice || cart[i]?.price) / 100;
+    totalPay = totalPay + ((cart[i]?.defaultPrice || cart[i]?.price) / 100)*cart[i].quantity;
   }
 
   let gst = totalPay * 0.18;
@@ -31,10 +31,11 @@ export default function CartPage() {
     "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Non_veg_symbol.svg/180px-Non_veg_symbol.svg.png?20131205102929";
 
   function handleRemoveCart(idx) {
-    if (cart.length > 1) {
-      const updatedCart = [...cart];
-      updatedCart.splice(idx, 1);
-      dispatch(deleteItem(updatedCart));
+    if (cart.length > 1 || cart[idx].quantity > 1) {
+      dispatch(decreaseQuantity(idx));
+    //   const updatedCart = [...cart];
+    //   updatedCart.splice(idx, 1);
+    //   dispatch(deleteItem(updatedCart));
       toast(() => (
         <span style={{ display: "flex", gap: "5px" }}>
           <FaRegTrashCan style={{ color: "red" }} />
@@ -50,10 +51,12 @@ export default function CartPage() {
     dispatch(clearCart());
   }
 
-  function handleOrder() {
-    toast.success("Order Placed , Thank You!");
-    handleClearCart();
-  }
+  // function handleOrder() {
+  //   toast.success("Order Placed , Thank You!");
+  //   handleClearCart();
+  // }
+
+  
   if (cart.length <= 0) {
     return (
       <div className="empty-cart-main-container">
@@ -109,10 +112,16 @@ export default function CartPage() {
                 <p style={{ fontSize: "15px", color: "#02060CEB" }}>
                   {" "}
                   ₹{(item?.defaultPrice || item?.price) / 100}
+                  <span id="item-quantity-first">x{item.quantity}</span>
                 </p>
-                <button id="cart-item-btn" onClick={() => handleRemoveCart(i)}>
+                <div className="cart-add-remove-item-container">
+                  <div className="remove-item-btn" onClick={() => handleRemoveCart(i)}>-</div>
+                  <p className="item-quantity">{item?.quantity} </p>
+                  <div className="add-item-btn" onClick={() => dispatch(increaseQuantity(i))}>+</div>
+                </div>
+                {/* <button id="cart-item-btn" onClick={() => handleRemoveCart(i)}>
                   Remove
-                </button>
+                </button> */}
               </div>
             </div>
           </div>
@@ -143,9 +152,11 @@ export default function CartPage() {
         </div>
         <div className="orderBtnContainer">
           {userData ? (
-            <button id="orderBtn" onClick={handleOrder}>
-              Place Order
+            <Link to="/restaurant/cart/checkout">
+            <button id="orderBtn">
+              Proceed to checkout
             </button>
+            </Link>
           ) : (
             <>
               <button id="Sign-in-Btn" onClick={handleShowSignIn}>
