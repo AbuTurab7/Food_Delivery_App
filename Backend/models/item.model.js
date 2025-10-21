@@ -22,12 +22,8 @@ const itemModelSchema = new mongoose.schema(
       min: 0,
       require: true,
     },
-    description: {
-      type: String,
-      require: true,
-    },
   },
   { timestamps: true }
 );
 
-export const itemModel = mongoose.model("itemModel", itemModelSchema);
+export const ItemModel = mongoose.model("ItemModel", itemModelSchema);

@@ -27,10 +27,10 @@ const restaurantSchema = new mongoose.schema({
         type: String,
         require: true     
     }],
-    // items: {
-    //     type: mongoose.schema.Types.ObjectId,
-    //     ref: "itemModel"
-    // }
+    items: {
+        type: mongoose.schema.Types.ObjectId,
+        ref: "ItemModel"
+    }
 },{timestamps: true});
 
 export const RestaurantModel = mongoose.model("RestaurantModel" , restaurantSchema);
