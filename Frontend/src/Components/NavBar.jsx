@@ -11,6 +11,7 @@ import { signInWithPopup, signOut } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { RiArrowDropDownLine } from "react-icons/ri";
+import { IoBagCheckOutline } from "react-icons/io5";
 import LocationOffcanvas from "./LocationOffcanvas";
 import { Outlet, useNavigate } from "react-router";
 import Container from "react-bootstrap/Container";
@@ -33,7 +34,7 @@ import { serverURL } from "./Home";
 export default function NavBar() {
   const cart = useSelector((state) => state.cartSlice.cartItems);
   const userData = useSelector((state) => state.authSlice.userData);
-  console.log(userData);
+  // console.log(userData);
 
   const [address, setAddress] = useState("Lucknow, Uttar Pradesh 4800");
 
@@ -166,10 +167,10 @@ export default function NavBar() {
                     <p>Search</p>
                   </div>
                 </Nav.Link>
-                <Nav.Link href="*">
+                <Nav.Link href="/my-orders">
                   <div className="offer-container">
-                    <TbCircleDashedPercentage />
-                    <p>Offers</p>
+                    <IoBagCheckOutline />
+                    <p>My Orders</p>
                   </div>
                 </Nav.Link>
                 <Nav.Link href="*">
@@ -232,8 +233,9 @@ export default function NavBar() {
             <Nav.Link href="*">
               <CiSearch /> Search
             </Nav.Link>
-            <Nav.Link href="*">
-              <TbCircleDashedPercentage /> Offers
+            <Nav.Link href="/my-orders">
+              <IoBagCheckOutline />
+                    <p>My Orders</p>
             </Nav.Link>
             <Nav.Link href="*">
               <IoHelpBuoyOutline /> Help

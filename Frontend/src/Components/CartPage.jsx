@@ -105,7 +105,7 @@ export default function CartPage() {
                   alt="logo"
                 />
                 <p style={{ fontSize: "14px", color: "#02060C" }}>
-                  {item?.name}
+                  {item.name.length >= 39 ? `${item?.name.slice(0,40)}...`: item?.name }
                 </p>
               </div>
               <div className="cart-item-btn-container">

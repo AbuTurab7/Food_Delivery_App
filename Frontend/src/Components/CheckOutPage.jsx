@@ -2,7 +2,7 @@ import { FaRegTrashCan } from "react-icons/fa6";
 import "./cart.css";
 import { Link, Navigate, useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import toast from "react-hot-toast";
+// import toast from "react-hot-toast";
 import { useState } from "react";
 import { MdLocationOn, MdOutlineMyLocation } from "react-icons/md";
 import { IoSearchOutline } from "react-icons/io5";
@@ -21,6 +21,9 @@ import "./checkoutPage.css";
 import { setAddress, setLocation } from "../Utilities/mapSlice";
 import { serverURL } from "./Home";
 import { clearCart } from "../Utilities/cartSlice";
+import { UseGetMyOrders } from "../hooks/UseGetMyOrders";
+import { addToMyOrders } from "../Utilities/authSlice";
+// import { addToMyOrders } from "../Utilities/orderSlice";
 
 export function CheckOutPage() {
   const [paymentMode, setPaymentMode] = useState("COD");
@@ -68,7 +71,7 @@ export function CheckOutPage() {
         }`
       );
       const result = await res.json();
-      console.log(result);
+      // console.log(result);
 
       const address = result?.results?.[0]?.formatted || "Unknown location";
       dispatch(setAddress(address));
@@ -105,6 +108,7 @@ export function CheckOutPage() {
         name: item.name,
         quantity: item.quantity,
         price: item?.defaultPrice || item?.price,
+        itemImage: item.imageId,
       })),
       deliveryAddress: {
         text: address,
@@ -115,7 +119,7 @@ export function CheckOutPage() {
       paymentMode,
     };
 
-    console.log("Order Payload:", orderPayload);
+    // console.log("Order Payload:", orderPayload);
 
     try {
       const res = await fetch(`${serverURL}/api/place-order`, {
@@ -129,10 +133,7 @@ export function CheckOutPage() {
         setError(data.message);
         return;
       }
-      console.log(data);
-
-      toast.success(data.message);
-
+      dispatch(addToMyOrders(data.order));
       dispatch(clearCart());
       navigate("/order-placed");
     } catch (error) {
@@ -156,7 +157,7 @@ export function CheckOutPage() {
                 placeholder="Enter your address..."
                 value={address}
                 placeSelect={(place) => {
-                  console.log("Selected place:", place);
+                  // console.log("Selected place:", place);
                   dispatch(setAddress(place.properties.formatted));
                   dispatch(
                     setLocation({

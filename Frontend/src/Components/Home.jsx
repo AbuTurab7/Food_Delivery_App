@@ -12,6 +12,8 @@ import { DeliveryBoy } from "./DeliveryBoy";
 import { OwnerDashboard } from "./OwnerDashboard";
 import { CheckOutPage } from "./CheckOutPage";
 import { OrderPlaced } from "./OrderPlaced";
+import { MyOrders } from "./MyOrders";
+import { UseGetMyOrders } from "../hooks/UseGetMyOrders";
 
 export const serverURL = "http://localhost:3000";
 export default function Home() {
@@ -20,9 +22,10 @@ export default function Home() {
     lng: 80.88564749999999,
   }));
   UseGetCurrentUser();
+  UseGetMyOrders();
 
   const userData = useSelector((state) => state.authSlice.userData);
-  console.log(userData);
+  // console.log(userData);
 
   const getDashBoard = () => {
      if (userData?.role === "owner") {
@@ -37,6 +40,7 @@ export default function Home() {
       <Route path="/restaurant/cart" element={<CartPage />} />
       <Route path="/restaurant/cart/checkout" element={<CheckOutPage />} />
       <Route path="/order-placed" element={<OrderPlaced />} />
+      <Route path="/my-orders" element={<MyOrders />} />
     </>
     );
     

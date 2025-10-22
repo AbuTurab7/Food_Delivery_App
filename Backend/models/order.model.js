@@ -22,7 +22,8 @@ const orderSchema = new mongoose.Schema({
       itemId: String,
       name: String,
       quantity: Number,
-      price: Number
+      price: Number,
+      itemImage: String
     }
   ],
   deliveryAddress: {

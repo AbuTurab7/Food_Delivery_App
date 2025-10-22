@@ -48,7 +48,7 @@ export const postRegistration = async (req, res) => {
       role,
     });
 
-    console.log("USer : " , user);
+    // console.log("USer : " , user);
     
     await authenticateUser({ res, user });
 

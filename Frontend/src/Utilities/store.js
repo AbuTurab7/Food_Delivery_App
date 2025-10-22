@@ -3,6 +3,8 @@ import cartSlice from "./cartSlice";
 import filterSlice from "./filterSlice";
 import authSlice from "./authSlice";
 import mapSlice from "./mapSlice"
+// import orderSlice from "./orderSlice"
+
 
 const store = configureStore(
     {
@@ -11,6 +13,7 @@ const store = configureStore(
             filterSlice : filterSlice,
             authSlice : authSlice,
             mapSlice : mapSlice,
+            // orderSlice : orderSlice,
         }
     }
 )

@@ -1,0 +1,254 @@
+.my-orders-main-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 60px 2% 20px; /* 👈 ensures content starts below fixed navbar */
+  min-height: 100vh;
+  background-color: #fafafa;
+}
+
+/* Main container */
+.my-orders-container {
+  width: 50%;
+  padding: 20px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  background-color: white;
+}
+
+.my-orders-container h4 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Each order card */
+.my-order-container {
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background-color: #fff;
+}
+
+/* Header */
+.my-order-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.my-order-header #order,
+.my-order-header #pay-mode,
+.my-order-body #rest-name {
+  color: black;
+  font-size: 15px;
+  font-weight: 500;
+}
+.my-order-header #date,
+.my-order-body #rest-address {
+  color: gray;
+  font-size: 12px;
+}
+.my-order-header #order-status {
+  color: blue;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* Restaurant Info */
+.my-order-body-upper {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* Order Items Grid */
+.my-order-body-lower {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 10px;
+}
+
+.my-order-body-lower .item-container {
+  box-shadow: 0 0 4px gray;
+  padding: 10px;
+  width: 21%;
+  border-radius: 8px;
+  background-color: #fff;
+  transition: transform 0.2s ease;
+}
+
+.my-order-body-lower .item-container:hover {
+  transform: scale(1.03);
+}
+
+/* Item image */
+.item-img-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.item-container img {
+  height: 80px;
+  width: 80px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* Item text */
+.item-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.item-container #item-name {
+  color: black;
+  font-size: 13px;
+  text-align: center;
+}
+.item-container #item-price {
+  color: grey;
+  font-size: 11px;
+}
+
+/* Footer Button */
+.my-order-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.my-order-footer button {
+  width: 50%;
+  background-color: orangered;
+  padding: 8px 15px;
+  color: white;
+  border: none;
+  border-radius: 7px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.my-order-footer button:hover {
+  background-color: #ff5a00;
+}
+.no-orders {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 0;
+  text-align: center;
+  color: gray;
+}
+
+.no-orders img {
+  width: 150px;
+  height: 150px;
+  margin-bottom: 20px;
+  opacity: 0.8;
+}
+
+.no-orders h3 {
+  color: black;
+  margin-bottom: 5px;
+}
+
+.no-orders p {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 15px;
+}
+
+/* 🔥 Order Now Button */
+.order-now-btn {
+  background-color: orangered;
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.order-now-btn:hover {
+  background-color: #ff4f00;
+  transform: scale(1.05);
+}
+
+
+/* ------------------------------
+   RESPONSIVENESS
+--------------------------------*/
+
+/* Tablets (≤1024px) */
+@media (max-width: 1024px) {
+  .my-orders-container {
+    width: 70%;
+  }
+
+  .my-order-body-lower .item-container {
+    width: 30%;
+  }
+}
+
+/* Large Phones (≤768px) */
+@media (max-width: 768px) {
+  .my-orders-main-container {
+    padding: 20px 4% 40px;
+  }
+
+  .my-orders-container {
+    width: 85%;
+    padding: 15px;
+  }
+
+  .my-order-body-lower {
+    justify-content: center;
+  }
+
+  .my-order-body-lower .item-container {
+    width: 45%;
+  }
+
+  .my-order-footer button {
+    width: 80%;
+  }
+}
+
+/* Small Phones (≤480px) */
+@media (max-width: 480px) {
+  .my-orders-container {
+    width: 95%;
+    padding: 10px;
+  }
+
+  .my-order-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .my-order-body-lower .item-container {
+    width: 100%;
+  }
+
+  .my-order-footer button {
+    width: 100%;
+    font-size: 13px;
+  }
+
+  .item-container img {
+    height: 70px;
+    width: 70px;
+  }
+}

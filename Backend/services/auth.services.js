@@ -14,7 +14,7 @@ export const getHashedPassword = async (password) => {
 export const comparePassword = async (hashedPassword , password) => {
   return argon2.verify(hashedPassword , password);
 };
-export const createUser = async ({
+export const createUser = async  ({
   fullname,
   email,
   password,
@@ -36,7 +36,7 @@ export const generateToken = async ({ userId, fullname , email , mobile , role }
 
 export const authenticateUser = async ({  res , user }) => {
 
-    const token = await generateToken({
+    const token = generateToken({
       userId: user._id,
       fullname: user.fullname,
       email: user.email,
@@ -50,7 +50,7 @@ export const authenticateUser = async ({  res , user }) => {
         maxAge:7*24*60*60*1000,
         httpOnly: true
     })
-    console.log(token);
+    // console.log(token);
 }
 
 export const generateOtp = async () => {
