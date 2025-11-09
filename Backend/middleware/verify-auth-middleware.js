@@ -8,9 +8,9 @@ export const verifyAuthentication = async (req , res , next) => {
         // console.log("token : " , token);
         
 
-        const decodedToken =  verifyToken(token);
+        const decodedToken = await verifyToken(token);
         if(!decodedToken) return res.status(400).json({ message: "Token not verified!"});
-        req.user = await decodedToken;
+        req.user =  decodedToken;
         // console.log("decodedToken : " , decodedToken);
         
         next();

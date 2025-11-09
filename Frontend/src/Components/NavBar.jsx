@@ -88,9 +88,11 @@ export default function NavBar() {
     return (
       <>
         <div className="ownerNavbar-main-container">
-          <div className="logo-container">
-            <SiSwiggy />
-          </div>
+           <Navbar.Brand href="/">
+              <div className="logo-container">
+                <SiSwiggy />
+              </div>
+            </Navbar.Brand>
           <div className="navLinks-container">
             <OverlayTrigger
               trigger="click"

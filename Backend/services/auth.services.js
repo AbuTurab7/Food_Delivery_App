@@ -36,7 +36,7 @@ export const generateToken = async ({ userId, fullname , email , mobile , role }
 
 export const authenticateUser = async ({  res , user }) => {
 
-    const token = generateToken({
+    const token = await generateToken({
       userId: user._id,
       fullname: user.fullname,
       email: user.email,

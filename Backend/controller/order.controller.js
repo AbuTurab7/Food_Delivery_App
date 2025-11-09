@@ -48,3 +48,19 @@ export const getMyOrders = async (req , res) => {
     res.status(500).json({ message: "Server error" });
   }
 }
+
+export const postUpdateOrderStatus = async (req ,res) => {
+  try {
+    if(!req.user) return res.status(400).json({message: "User not found! , Please login."});
+    const {orderId} = req.params;
+    const  {status}  = req.body;
+    const order = await Order.findById(orderId);    
+    if(!order) return res.status(400).json({message: "Order not found!"});    
+    order.orderStatus = status;
+   await order.save();
+    return res.status(201).json(order);
+  } catch (error) {
+    console.error(" Error in updating orders status ", error);
+    res.status(500).json({ message: "Server error" });
+  }
+}     

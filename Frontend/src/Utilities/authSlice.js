@@ -19,8 +19,15 @@ const authSlice = createSlice({
         addToMyOrders: (state, action) => {   
             state.myOrders = [action.payload, ...state.myOrders];
         },
+        setOrderStatus: (state , action) => {
+            const {orderId , status} = action.payload
+            const order = state.myOrders.find(o=>o._id==orderId)
+            if(order){
+                order.orderStatus = status;
+            }
+        }
     }
 })
 
-export const {addUser , removeUser , setMyOrders,  addToMyOrders } = authSlice.actions;
+export const {addUser , removeUser , setMyOrders,  addToMyOrders , setOrderStatus } = authSlice.actions;
 export default authSlice.reducer;

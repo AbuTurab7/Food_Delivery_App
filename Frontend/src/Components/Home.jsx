@@ -40,10 +40,9 @@ export default function Home() {
       <Route path="/restaurant/cart" element={<CartPage />} />
       <Route path="/restaurant/cart/checkout" element={<CheckOutPage />} />
       <Route path="/order-placed" element={<OrderPlaced />} />
-      <Route path="/my-orders" element={<MyOrders />} />
+      {/* <Route path="/my-orders" element={<MyOrders />} /> */}
     </>
     );
-    
   }
   }
 
@@ -58,7 +57,7 @@ export default function Home() {
           <Route path="/restaurant/:id" element={<Restaurant />} />
           <Route path="/restaurant/cart" element={<CartPage />} />
           } */}
-          
+          <Route path="/my-orders" element={<MyOrders />} />
           <Route path="*" element={<h1>Coming Soon...</h1>} />
         </Routes>
       </div>
