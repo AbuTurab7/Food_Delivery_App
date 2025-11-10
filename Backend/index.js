@@ -7,6 +7,7 @@ import flash from "connect-flash";
 import authRouter from "./routes/auth.routes.js";
 import cors from "cors";
 import orderRouter from "./routes/order.routes.js";
+import deliveryRouter from "./routes/delivery.routes.js";
 
 dotenv.config();
 const app = express();
@@ -30,6 +31,7 @@ app.use(flash());
 
 app.use("/api/auth", authRouter);
 app.use("/api", orderRouter);
+app.use("/api", deliveryRouter);
 
 
 app.get("/" , (req , res) => {

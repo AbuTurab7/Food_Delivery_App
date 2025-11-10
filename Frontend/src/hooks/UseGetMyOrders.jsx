@@ -6,7 +6,7 @@ import { setMyOrders } from "../Utilities/authSlice";
 
 export const UseGetMyOrders = () => {
   const userData = useSelector((state) => state.authSlice.userData);
-  const orderData = useSelector((state) => state.authSlice.myOrders);
+  // const orderData = useSelector((state) => state.authSlice.myOrders);
   const dispatch = useDispatch();
   useEffect(() => {
     const fetchOrders = async () => {

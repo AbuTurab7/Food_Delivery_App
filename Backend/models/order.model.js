@@ -42,6 +42,14 @@ const orderSchema = new mongoose.Schema({
     enum: ["COD", "Online"],
     default: "COD"
   },
+   deliveryBoy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    default: null
+  },
+  assignedAt: {
+    type: Date
+  }
 } , {timestamps : true});
 
 const Order = mongoose.model("Order", orderSchema);

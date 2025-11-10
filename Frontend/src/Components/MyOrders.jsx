@@ -1,27 +1,58 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router";
 import "./myOrders.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import { serverURL } from "./Home";
-import { setOrderStatus } from "../Utilities/authSlice";
+import {
+  addToMyOrders,
+  setDeliveryBoy,
+  setOrderStatus,
+  updateOrder,
+} from "../Utilities/authSlice";
+import toast from "react-hot-toast";
 
 export const MyOrders = () => {
   const userData = useSelector((state) => state.authSlice.userData);
   const myOrders = useSelector((state) => state.authSlice.myOrders);
   const dispatch = useDispatch();
   const [error, setError] = useState(null);
+  const [deliveryBoys, setDeliveryBoys] = useState([]);
+  const [selectedDeliveryBoy, setSelectedDeliveryBoy] = useState("");
+
+  const getDeliveryBoys = async () => {
+    setError(null);
+    try {
+      const res = await fetch(`${serverURL}/api/all-delivery-boys`, {
+        method: "GET",
+        credentials: "include",
+      });
+      const result = await res.json();
+      if (!res.ok) {
+        setError(result.message);
+        return;
+      }
+      console.log(result);
+      setDeliveryBoys(result);
+    } catch (error) {
+      console.error("Error in getting delivery boys:", error);
+      setError("There's an issue in getting delivery boys");
+    }
+  };
 
   const handleOrderStatus = async ({ orderId, status }) => {
     setError(null);
     try {
-      const res = await fetch(`${serverURL}/api/update-orders-status/${orderId}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status }),
-        credentials: "include",
-      });
+      const res = await fetch(
+        `${serverURL}/api/update-orders-status/${orderId}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ status }),
+          credentials: "include",
+        }
+      );
 
       const data = await res.json();
       if (!res.ok) {
@@ -35,6 +66,39 @@ export const MyOrders = () => {
       setError("There's an issue in updating status");
     }
   };
+
+  const handleAssign = async ({ isAllowed, orderId }) => {
+    setError(null);
+    if (!isAllowed) {
+      setError("No delivery boy is selected!");
+      return;
+    }
+    try {
+      const res = await fetch(
+        `${serverURL}/api/${orderId}/assign-delivery-boy`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ deliveryBoyId: selectedDeliveryBoy._id }),
+          credentials: "include",
+        }
+      );
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.message);
+        return;
+      }
+      dispatch(updateOrder(data.order));
+      toast.success(data.message);
+    } catch (error) {
+      console.error("Error in assigning deliver boy :", error);
+      setError("There's an issue in assigning deliver boy");
+    }
+  };
+  console.log(deliveryBoys);
+  useEffect(() => {
+    getDeliveryBoys();
+  }, []);
 
   return (
     <div className="my-orders-main-container">
@@ -55,7 +119,7 @@ export const MyOrders = () => {
             </Link>
           </div>
         ) : (
-          myOrders.map((order, idx) => (
+          myOrders.slice().reverse().map((order, idx) => (
             <div className="my-order-container" key={idx}>
               <div className="my-order-header">
                 <div className="my-order-header-left">
@@ -66,7 +130,42 @@ export const MyOrders = () => {
                 <div className="my-order-header-right">
                   <p id="pay-mode">{order.paymentMode}</p>
 
-                  {userData.role === "owner" ? (
+                  {userData.role === "owner" && order.deliveryBoy !== null ? (
+                    <p>{order?.deliveryBoy?.fullname}</p>
+                  ) : userData.role === "owner" &&
+                    order.orderStatus === "out_for_delivery" ? (
+                    <div>
+                      {deliveryBoys.length === 0 ? (
+                        <p>No delivery boy available</p>
+                      ) : (
+                        <DropdownButton
+                          id="dropdown-basic-button"
+                          title={
+                            order?.deliveryBoy?.fullname ||
+                            "Select a delivery boy"
+                          }
+                          className="custom-dropdown"
+                        >
+                          {deliveryBoys.map((boy) => (
+                            <Dropdown.Item
+                              key={boy._id}
+                              onClick={() => {
+                                setSelectedDeliveryBoy(boy);
+                                dispatch(
+                                  setDeliveryBoy({
+                                    orderId: order._id,
+                                    deliveryBoy: boy,
+                                  })
+                                );
+                              }}
+                            >
+                              {boy.fullname}
+                            </Dropdown.Item>
+                          ))}
+                        </DropdownButton>
+                      )}
+                    </div>
+                  ) : userData.role === "owner" ? (
                     <DropdownButton
                       id="dropdown-basic-button"
                       title={order.orderStatus.replace(/_/g, " ")}
@@ -82,6 +181,7 @@ export const MyOrders = () => {
                       >
                         pending
                       </Dropdown.Item>
+
                       <Dropdown.Item
                         onClick={() =>
                           handleOrderStatus({
@@ -92,22 +192,21 @@ export const MyOrders = () => {
                       >
                         preparing
                       </Dropdown.Item>
+
                       <Dropdown.Item
-                        onClick={() =>
+                        onClick={() => {
                           handleOrderStatus({
                             orderId: order._id,
                             status: "out_for_delivery",
-                          })
-                        }
+                          });
+                          // getDeliveryBoys();
+                        }}
                       >
                         out for delivery
                       </Dropdown.Item>
                     </DropdownButton>
                   ) : (
-                    <p
-                      id="order-status"
-                      className={order.orderStatus}
-                    >
+                    <p id="order-status" className={order.orderStatus}>
                       {order.orderStatus.replace(/_/g, " ")}
                     </p>
                   )}
@@ -144,8 +243,36 @@ export const MyOrders = () => {
                 </div>
               </div>
 
+              {/* <div className="my-order-footer">
+                {userData.role === "user" ? (
+                  <button>Track order</button>
+                ) : (
+                  <button onClick={() => handleAssign(order._id)}>
+                    Assign To Delivery Partner
+                  </button>
+                )}
+              </div> */}
+
               <div className="my-order-footer">
-                <button>Track order</button>
+                {userData.role === "user" ? (
+                  <button>Track order</button>
+                ) : // <button onClick={() => handleAssign(order._id)}>
+                //   Assign To Delivery Partner{" "}
+                // </button>
+                order?.assignedAt ? (
+                  <button>Track order</button>
+                ) : (
+                  <button
+                    onClick={() =>
+                      handleAssign({
+                        isAllowed: order?.deliveryBoy?.fullname,
+                        orderId: order._id,
+                      })
+                    }
+                  >
+                    Assign To Delivery Partner{" "}
+                  </button>
+                )}
               </div>
             </div>
           ))
