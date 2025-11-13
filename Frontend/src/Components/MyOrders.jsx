@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import "./myOrders.css";
 import { useEffect, useState } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
@@ -17,6 +17,7 @@ export const MyOrders = () => {
   const userData = useSelector((state) => state.authSlice.userData);
   const myOrders = useSelector((state) => state.authSlice.myOrders);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [error, setError] = useState(null);
   const [deliveryBoys, setDeliveryBoys] = useState([]);
   const [selectedDeliveryBoy, setSelectedDeliveryBoy] = useState("");
@@ -246,10 +247,10 @@ export const MyOrders = () => {
 
               <div className="my-order-footer">
                 {userData.role === "user" ? (
-                  <button>Track order</button>
+                  <button onClick={() => navigate(`order-details/${order._id}`)}>Track order</button>
                 ) : 
                 order?.assignedAt ? (
-                  <button>Track order</button>
+                  <button onClick={() => navigate(`order-details/${order._id}`)}>Track order</button>
                 ) : (
                   <button
                     onClick={() =>

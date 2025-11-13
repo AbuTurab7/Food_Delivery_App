@@ -133,14 +133,54 @@ export function CheckOutPage() {
         setError(data.message);
         return;
       }
-      dispatch(addToMyOrders(data.order));
+    if(paymentMode === "COD"){
+        dispatch(addToMyOrders(data.order));
       dispatch(clearCart());
       navigate("/order-placed");
+    } else {
+      const orderId = data.orderId;
+      const razorOrder = data.razorOrder;
+      openRazorPayWindow(orderId , razorOrder);
+    }
     } catch (error) {
       console.error(`Error during placing order:`, error);
       setError(`There's a issue in placing order`);
     }
   };
+
+  const openRazorPayWindow = (orderId , razorOrder) => {
+    const options = {
+      key: import.meta.env.VITE_RAZOR_KEY,
+      amount: razorOrder.amount,
+      currency: "INR",
+      name : "FoodDeliveryApp",
+      description: "Food Delivery Website",
+      order_id: razorOrder.id,
+      handler: async function (response) {
+        try {
+          const res = await fetch(`${serverURL}/api/order/verify-payment`, {
+            method: "POST",
+            headers: {"Content-Type":"application/json"},
+            body: JSON.stringify({razorpay_payment_id: response.razorpay_payment_id, orderId}),
+            credentials: "include"
+          })
+          const data = await res.json();
+      if (!res.ok) {
+        setError(data.message);
+        return;
+      }
+      dispatch(addToMyOrders(data.order));
+      dispatch(clearCart());
+      navigate("/order-placed");
+        } catch (error) {
+          console.error(`Error during payment verification:`, error);
+      setError(`There's a issue in verifying payment`);
+        }
+      }
+    }
+    const rzp = new window.Razorpay(options)
+    rzp.open();
+  }
 
   return (
     <div className="checkout-main-container">
@@ -299,15 +339,9 @@ export function CheckOutPage() {
           </div>
           {error && <p className="error-msg">{error}</p>}
           <div className="orderBtnContainer">
-            {paymentMode === "COD" ? (
-              // <Link to="/restaurant/cart/checkout">
               <button id="payment-btn" onClick={placeOrder}>
-                Place order
+                {paymentMode === "COD" ? "Place order" : "Pay & place order"}
               </button>
-            ) : (
-              // </Link>
-              <button id="payment-btn">Pay & place order</button>
-            )}
           </div>
         </div>
       </div>

@@ -194,7 +194,7 @@ export const OrderDetails = () => {
           </div>
           {error && <p className="error-msg">{error}</p>}
           {
-            order.orderStatus !== "Delivered" && <button id="delivered-btn" disabled={btnDisabled} onClick={() => {
+            (userData.role === "deliveryBoy" && order.orderStatus !== "Delivered") && <button id="delivered-btn" disabled={btnDisabled} onClick={() => {
             handleSendDeliveryOTP();
           }}>
             Mark as Delivered
