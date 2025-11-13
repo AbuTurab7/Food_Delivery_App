@@ -212,7 +212,7 @@ export const MyOrders = () => {
                     
                   )}
                   {
-                    order.orderStatus === "Delivered" && <p id="order-status" className={order.orderStatus}>
+                    (userData.role === "owner" && order.orderStatus === "Delivered") && <p id="order-status" className={order.orderStatus}>
                       {order.orderStatus.replace(/_/g, " ")}
                     </p>
                   }
