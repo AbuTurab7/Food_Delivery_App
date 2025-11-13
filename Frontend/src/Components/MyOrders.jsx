@@ -209,7 +209,13 @@ export const MyOrders = () => {
                     <p id="order-status" className={order.orderStatus}>
                       {order.orderStatus.replace(/_/g, " ")}
                     </p>
+                    
                   )}
+                  {
+                    order.orderStatus === "Delivered" && <p id="order-status" className={order.orderStatus}>
+                      {order.orderStatus.replace(/_/g, " ")}
+                    </p>
+                  }
                 </div>
               </div>
 

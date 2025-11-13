@@ -187,7 +187,7 @@ export const OrderDetails = () => {
             ))}
             <div className="order-summary-footer">
               <div className="to-pay">
-                <p>TO PAY</p>
+                <p>Total</p>
                 <p>₹{order?.totalAmount}</p>
               </div>
             </div>
