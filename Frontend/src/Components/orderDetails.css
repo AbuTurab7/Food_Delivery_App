@@ -1,0 +1,187 @@
+.my-orders-container .body {
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  border-radius: 12px;
+  background-color: #fff;
+  width: 90%;
+  max-width: 700px;
+  margin: 20px auto;
+}
+
+.order-details-border {
+  height: 1px;
+  width: 90%;
+  margin: auto;
+  background-color: rgba(165, 165, 165, 0.737);
+}
+
+.order-details,
+.restaurant-details,
+.customer-detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0 20px 0;
+  background-color: white;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.order-detail-left,
+.order-detail-right,
+.rest-details-left,
+.rest-detail-right,
+.customer-detail-left,
+.customer-detail-right {
+  flex: 1 1 45%;
+}
+
+.restaurant-details img {
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+#delivered-btn {
+  margin-top: 15px;
+  border: none;
+  background-color: orangered;
+  border-radius: 5px;
+  color: white;
+  padding: 10px 50px;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+#delivered-btn:disabled {
+  background-color: rgb(195, 54, 3);
+  cursor: not-allowed;
+}
+
+#delivered-btn:hover:not(:disabled) {
+  background-color: #ff5414;
+}
+
+/* OTP Modal */
+#deliveryOTP-modal {
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
+}
+
+.deliver-otp-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.deliver-otp-container input {
+  width: 100%;
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  outline: none;
+  font-size: 16px;
+}
+
+/* 🧾 Order Summary Section */
+.order-summary-container {
+  margin-top: 20px;
+}
+
+.cart-item-container {
+  border-bottom: 1px solid #eee;
+  padding: 8px 0;
+}
+
+.cart-details-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.cart-item-name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+}
+
+.cart-item-btn-container {
+  min-width: 100px;
+  text-align: right;
+}
+
+.to-pay {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  padding-top: 10px;
+}
+
+/* 🔻 Responsive Styles */
+@media (max-width: 768px) {
+  .my-orders-container .body {
+    width: 95%;
+    padding: 10px;
+  }
+
+  .order-details,
+  .restaurant-details,
+  .customer-detail-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .order-details-border {
+    width: 100%;
+  }
+
+  .cart-details-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cart-item-btn-container {
+    text-align: left;
+    margin-top: 5px;
+  }
+
+  #delivered-btn {
+    padding: 12px;
+  }
+
+  .deliver-otp-container input {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .my-orders-container .body {
+    width: 100%;
+    padding: 8px;
+  }
+
+  p {
+    font-size: 13px;
+  }
+
+  #delivered-btn {
+    font-size: 14px;
+  }
+
+  .deliver-otp-container input {
+    padding: 8px 15px;
+  }
+
+  .cart-item-name img {
+    height: 20px;
+    width: 20px;
+  }
+
+  .cart-item-btn-container p {
+    font-size: 13px;
+  }
+}

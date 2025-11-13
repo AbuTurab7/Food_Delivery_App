@@ -4,7 +4,7 @@
   align-items: flex-start;
   padding: 20px;
   min-height: 100vh;
-  background-color: #fafafa;
+  background-color: #ffffff;
 }
 
 /* Main container */
@@ -61,13 +61,13 @@
 }
 
 /* Status color (for text users see) */
-#order-status.pending {
+#order-status.Pending {
   color: #007bff;
 }
-#order-status.preparing {
+#order-status.Preparing {
   color: orangered;
 }
-#order-status.out_for_delivery {
+#order-status.Out_for_delivery {
   color: #4caf50;
 }
 
@@ -194,15 +194,15 @@
 .custom-dropdown #dropdown-basic-button{
   border: none;
 }
-.custom-dropdown.pending > button {
+.custom-dropdown.Pending > button {
   background-color: #007bff !important;
   color: white !important;
 }
-.custom-dropdown.preparing > button {
+.custom-dropdown.Preparing > button {
   background-color: orangered !important;
   color: white !important;
 }
-.custom-dropdown.out_for_delivery > button {
+.custom-dropdown.Out_for_delivery > button {
   background-color: #4caf50 !important;
   color: white !important;
 }

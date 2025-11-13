@@ -16,6 +16,8 @@ export const UseGetMyOrders = () => {
         });
         const result = await res.json();
         dispatch(setMyOrders(result));
+        console.log(result);
+        
       } catch (error) {
         console.log("Error in fetch orders : ", error);
       }

@@ -34,8 +34,8 @@ const orderSchema = new mongoose.Schema({
   totalAmount: String,
   orderStatus: {
     type: String,
-    enum: ["pending", "accepted", "preparing", "out_for_delivery", "delivered"],
-    default: "pending"
+    enum: ["Pending", "Accepted", "Preparing", "Out_for_delivery", "Delivered"],
+    default: "Pending"
   },
   paymentMode: {
     type: String,
@@ -49,7 +49,15 @@ const orderSchema = new mongoose.Schema({
   },
   assignedAt: {
     type: Date
-  }
+  },
+   deliveryOtp:{
+        type: String,
+        default: null
+    },
+    otpExpires:{
+        type: Date,
+        default: null
+    },
 } , {timestamps : true});
 
 const Order = mongoose.model("Order", orderSchema);

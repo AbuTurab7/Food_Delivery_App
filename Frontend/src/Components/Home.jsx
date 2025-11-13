@@ -14,6 +14,8 @@ import { CheckOutPage } from "./CheckOutPage";
 import { OrderPlaced } from "./OrderPlaced";
 import { MyOrders } from "./MyOrders";
 import { UseGetMyOrders } from "../hooks/UseGetMyOrders";
+import { DeliveryBoyOrder } from "./DeliveryBoyOrder";
+import { OrderDetails } from "./OrderDetails";
 
 export const serverURL = "http://localhost:3000";
 export default function Home() {
@@ -29,9 +31,19 @@ export default function Home() {
 
   const getDashBoard = () => {
      if (userData?.role === "owner") {
-    return <Route path="/" element={<OwnerDashboard />} />;
+    return (
+      <>
+    <Route path="/" element={<OwnerDashboard />} />
+    <Route path="/my-orders" element={<MyOrders />} />
+    </>
+    );
   } else if (userData?.role === "deliveryBoy") {
-   return <Route path="/" element={<DeliveryBoy />} />;
+   return (
+      <>
+    <Route path="/" element={<DeliveryBoy />} />
+    <Route path="/my-orders" element={<DeliveryBoyOrder />} />
+    </>
+    );
   } else {
     return (
       <>
@@ -40,7 +52,7 @@ export default function Home() {
       <Route path="/restaurant/cart" element={<CartPage />} />
       <Route path="/restaurant/cart/checkout" element={<CheckOutPage />} />
       <Route path="/order-placed" element={<OrderPlaced />} />
-      {/* <Route path="/my-orders" element={<MyOrders />} /> */}
+      <Route path="/my-orders" element={<MyOrders />} />
     </>
     );
   }
@@ -57,7 +69,7 @@ export default function Home() {
           <Route path="/restaurant/:id" element={<Restaurant />} />
           <Route path="/restaurant/cart" element={<CartPage />} />
           } */}
-          <Route path="/my-orders" element={<MyOrders />} />
+          <Route path="/my-orders/order-details/:id" element={<OrderDetails />} />
           <Route path="*" element={<h1>Coming Soon...</h1>} />
         </Routes>
       </div>

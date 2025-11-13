@@ -106,7 +106,7 @@ export const MyOrders = () => {
         <h4>My Orders</h4>
         {error && <p className="error-msg">{error}</p>}
 
-        {myOrders.length === 0 ? (
+        {myOrders?.length === 0 ? (
           <div className="no-orders">
             <img
               src="https://cdn-icons-png.flaticon.com/512/4076/4076549.png"
@@ -119,7 +119,7 @@ export const MyOrders = () => {
             </Link>
           </div>
         ) : (
-          myOrders.slice().reverse().map((order, idx) => (
+          myOrders?.map((order, idx) => (
             <div className="my-order-container" key={idx}>
               <div className="my-order-header">
                 <div className="my-order-header-left">
@@ -133,7 +133,7 @@ export const MyOrders = () => {
                   {userData.role === "owner" && order.deliveryBoy !== null ? (
                     <p>{order?.deliveryBoy?.fullname}</p>
                   ) : userData.role === "owner" &&
-                    order.orderStatus === "out_for_delivery" ? (
+                    order.orderStatus === "Out_for_delivery" ? (
                     <div>
                       {deliveryBoys.length === 0 ? (
                         <p>No delivery boy available</p>
@@ -175,34 +175,33 @@ export const MyOrders = () => {
                         onClick={() =>
                           handleOrderStatus({
                             orderId: order._id,
-                            status: "pending",
+                            status: "Pending",
                           })
                         }
                       >
-                        pending
+                        Pending
                       </Dropdown.Item>
 
                       <Dropdown.Item
                         onClick={() =>
                           handleOrderStatus({
                             orderId: order._id,
-                            status: "preparing",
+                            status: "Preparing",
                           })
                         }
                       >
-                        preparing
+                        Preparing
                       </Dropdown.Item>
 
                       <Dropdown.Item
                         onClick={() => {
                           handleOrderStatus({
                             orderId: order._id,
-                            status: "out_for_delivery",
+                            status: "Out_for_delivery",
                           });
-                          // getDeliveryBoys();
                         }}
                       >
-                        out for delivery
+                        Assign to delivery boy
                       </Dropdown.Item>
                     </DropdownButton>
                   ) : (
@@ -243,22 +242,12 @@ export const MyOrders = () => {
                 </div>
               </div>
 
-              {/* <div className="my-order-footer">
-                {userData.role === "user" ? (
-                  <button>Track order</button>
-                ) : (
-                  <button onClick={() => handleAssign(order._id)}>
-                    Assign To Delivery Partner
-                  </button>
-                )}
-              </div> */}
+              
 
               <div className="my-order-footer">
                 {userData.role === "user" ? (
                   <button>Track order</button>
-                ) : // <button onClick={() => handleAssign(order._id)}>
-                //   Assign To Delivery Partner{" "}
-                // </button>
+                ) : 
                 order?.assignedAt ? (
                   <button>Track order</button>
                 ) : (
