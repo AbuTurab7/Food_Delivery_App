@@ -13,6 +13,7 @@ import {
   updateOrder,
 } from "../Utilities/authSlice";
 import toast from "react-hot-toast";
+import { OrderTrackingMap } from "./OrderTrackingMap";
 
 export const OrderDetails = () => {
   const { id } = useParams();
@@ -130,32 +131,7 @@ export const OrderDetails = () => {
                 <p>{userData.email}</p>
               </div>
             </div>
-            <div className="delivery-map-container">
-              <div className="delivery-map">
-                {location.lat && location.lon ? (
-                  <MapContainer
-                    center={position}
-                    zoom={16}
-                    style={{ height: "100%", width: "100%" }}
-                  >
-                    <TileLayer
-                      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    />
-                    <RecenterMap location={location} />
-                    <Marker
-                      position={position}
-                      draggable
-                      eventHandlers={{ dragend: handleDragEnd }}
-                    >
-                      <Popup>Your location</Popup>
-                    </Marker>
-                  </MapContainer>
-                ) : (
-                  <p>Loading map...</p>
-                )}
-              </div>
-            </div>
+            {order.orderStatus !== "Delivered" && <OrderTrackingMap order={order}/>}
           </div>
           <div className="order-summary-container">
             <p id="checkout-title" style={{ margin: "10px 0" }}>
