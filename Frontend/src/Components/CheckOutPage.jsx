@@ -23,7 +23,7 @@ import { serverURL } from "./Home";
 import { clearCart } from "../Utilities/cartSlice";
 import { UseGetMyOrders } from "../hooks/UseGetMyOrders";
 import { addToMyOrders } from "../Utilities/authSlice";
-import marker from "../assets/scooter.png";
+import marker from "../assets/marker.png";
 // import { addToMyOrders } from "../Utilities/orderSlice";
 const markerIcon = new L.Icon({
   iconUrl: marker,
