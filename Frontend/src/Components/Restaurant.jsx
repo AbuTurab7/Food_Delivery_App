@@ -240,34 +240,21 @@ export default function Restaurant() {
                   fontWeight: "700",
                 }}
               >
-                For better experience, download the Swiggy app now
+                For better experience, download the QuickBite app now
               </p>
               <div className="GoogleApple-container">
-                <a
-                  style={{ marginRight: "30px" }}
-                  href="https://play.google.com/store/apps/details?id=in.swiggy.android&referrer=utm_source%3Dswiggy%26utm_medium%3Dheader"
-                  target="blank"
-                  className="google-play"
-                >
                   <img
                     height={"48px"}
                     width={"150px"}
                     src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto/portal/m/play_store.png"
                     alt="Google"
                   />
-                </a>
-                <a
-                  href="https://apps.apple.com/in/app/swiggy-food-instamart-dineout/id989540920"
-                  target="blank"
-                  className="apple-store"
-                >
                   <img
                     height={"48px"}
                     width={"150px"}
                     src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto/portal/m/app_store.png"
                     alt="Apple"
                   />
-                </a>
               </div>
             </div>
           </div>

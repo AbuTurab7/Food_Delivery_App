@@ -16,18 +16,17 @@ import LocationOffcanvas from "./LocationOffcanvas";
 import { Outlet, useNavigate } from "react-router";
 import Container from "react-bootstrap/Container";
 import Popover from "react-bootstrap/Popover";
-import { useState, useEffect, useContext } from "react";
+import { useState } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import { SiSwiggy } from "react-icons/si";
 import { CiSearch } from "react-icons/ci";
 import { GiHamburgerMenu } from "react-icons/gi";
 import toast from "react-hot-toast";
+import { SiQuicktime } from "react-icons/si";
 
 import "./offCanvas.css";
 import "./navbar.css";
-import { Coordinates } from "./ContextApi";
 import SignInCanvas from "./SignInCanvas";
 import { serverURL } from "./Home";
 
@@ -88,11 +87,11 @@ export default function NavBar() {
     return (
       <>
         <div className="ownerNavbar-main-container">
-           <Navbar.Brand href="/">
-              <div className="logo-container">
-                <SiSwiggy />
-              </div>
-            </Navbar.Brand>
+          <Navbar.Brand href="/">
+            <div className="logo-container">
+              <SiQuicktime />
+            </div>
+          </Navbar.Brand>
           <div className="navLinks-container">
             <OverlayTrigger
               trigger="click"
@@ -101,8 +100,8 @@ export default function NavBar() {
             >
               <Nav.Link>
                 <div className="sign-in-container">
-                  <IoPersonOutline style={{fontSize:"22px"}}/>
-                  <p style={{fontSize:"16px"}}>{userData?.fullname}</p>
+                  <IoPersonOutline style={{ fontSize: "22px" }} />
+                  <p style={{ fontSize: "16px" }}>{userData?.fullname}</p>
                 </div>
               </Nav.Link>
             </OverlayTrigger>
@@ -121,7 +120,7 @@ export default function NavBar() {
           <div className="logo-drop-container">
             <Navbar.Brand href="/">
               <div className="logo-container">
-                <SiSwiggy />
+                <SiQuicktime />
               </div>
             </Navbar.Brand>
 
@@ -160,7 +159,7 @@ export default function NavBar() {
                 <Nav.Link href="*">
                   <div className="corporate-container">
                     <IoBagOutline />
-                    <p>Swiggy Corporate</p>
+                    <p>QuickBite</p>
                   </div>
                 </Nav.Link>
                 <Nav.Link href="*">
@@ -222,7 +221,7 @@ export default function NavBar() {
         </Container>
       </Navbar>
 
-      {/* ---- OFFCANVAS (Hamburger Menu for Mobile) ---- */}
+      {/* OFFCANVAS (Hamburger Menu for Mobile) */}
       <Offcanvas show={showMenu} onHide={handleMenuClose} placement="start">
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Menu</Offcanvas.Title>
@@ -230,14 +229,14 @@ export default function NavBar() {
         <Offcanvas.Body>
           <Nav className="flex-column">
             <Nav.Link href="*">
-              <IoBagOutline /> Swiggy Corporate
+              <IoBagOutline /> QuickBite
             </Nav.Link>
             <Nav.Link href="*">
               <CiSearch /> Search
             </Nav.Link>
             <Nav.Link href="/my-orders">
               <IoBagCheckOutline />
-                    <p>My Orders</p>
+              <p>My Orders</p>
             </Nav.Link>
             <Nav.Link href="*">
               <IoHelpBuoyOutline /> Help
@@ -272,7 +271,6 @@ export default function NavBar() {
           </Nav>
         </Offcanvas.Body>
       </Offcanvas>
-
       <Outlet />
     </>
   );

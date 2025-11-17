@@ -78,7 +78,8 @@
 .shimmer-img,
 .rest-shimmer-img,
 .shimmer-title,
-.shimmer-detail {
+.shimmer-detail,
+.rest-shimmer-card {
   background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
   background-size: 800px 104px;
   animation: shimmerEffect 1.2s infinite linear;
@@ -103,6 +104,18 @@
   padding: 10px;
 }
 .rest-shimmer-img {
+  height: 250px;
+  background-color: gray;
+}
+
+.myOrder-shimmer{
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.rest-shimmer-card{
   height: 250px;
   background-color: gray;
 }

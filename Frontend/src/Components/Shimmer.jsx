@@ -49,3 +49,16 @@ export  function RestShimmer(){
         </div>
     );
 }
+
+export function MyOrderShimmer(){
+  return (
+    <div className="myOrder-shimmer">
+          {Array(2)
+            .fill("")
+            .map((_,i) => (
+              <div className="rest-shimmer-card" key={i}>
+              </div>
+            ))}
+        </div>
+  )
+}

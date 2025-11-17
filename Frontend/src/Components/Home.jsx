@@ -16,6 +16,7 @@ import { MyOrders } from "./MyOrders";
 import { UseGetMyOrders } from "../hooks/UseGetMyOrders";
 import { DeliveryBoyOrder } from "./DeliveryBoyOrder";
 import { OrderDetails } from "./OrderDetails";
+import InDevelopment from "./InDevelopment";
 
 export const serverURL = "http://localhost:3000";
 export default function Home() {
@@ -27,21 +28,21 @@ export default function Home() {
   UseGetMyOrders();
 
   const userData = useSelector((state) => state.authSlice.userData);
-  // console.log(userData);
+  console.log(userData);
 
   const getDashBoard = () => {
      if (userData?.role === "owner") {
     return (
       <>
-    <Route path="/" element={<OwnerDashboard />} />
-    <Route path="/my-orders" element={<MyOrders />} />
+    {/* <Route path="/" element={<OwnerDashboard />} /> */}
+    <Route path="/" element={<MyOrders />} />
     </>
     );
   } else if (userData?.role === "deliveryBoy") {
    return (
       <>
-    <Route path="/" element={<DeliveryBoy />} />
-    <Route path="/my-orders" element={<DeliveryBoyOrder />} />
+    {/* <Route path="/" element={<DeliveryBoy />} /> */}
+    <Route path="/" element={<DeliveryBoyOrder />} />
     </>
     );
   } else {
@@ -70,7 +71,7 @@ export default function Home() {
           <Route path="/restaurant/cart" element={<CartPage />} />
           } */}
           <Route path="/my-orders/order-details/:id" element={<OrderDetails />} />
-          <Route path="*" element={<h1>Coming Soon...</h1>} />
+          <Route path="*" element={<InDevelopment />} />
         </Routes>
       </div>
     </Coordinates.Provider>

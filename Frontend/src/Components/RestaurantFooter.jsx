@@ -1,12 +1,12 @@
 import "./restaurantFooter.css";
-import { SiSwiggy } from "react-icons/si";
 import { RiArrowDropDownLine } from "react-icons/ri";
+import { SiQuicktime } from "react-icons/si";
 import { useState } from "react";
 
-export default function RestaurantFooter() {
 
-  const [isDown , setDown]=useState(false);
-  
+export default function RestaurantFooter() {
+  const [isDown, setDown] = useState(false);
+
   return (
     <div className="restaurant_footer_container">
       <div className="restaurant-footer-inside-container">
@@ -18,15 +18,10 @@ export default function RestaurantFooter() {
               fontWeight: "700",
             }}
           >
-            For better experience, download the Swiggy app now
+            For better experience, download the QuickBite app now
           </p>
           <div className="GoogleApple-container">
-            <a
-              style={{ marginRight: "30px" }}
-              href="https://play.google.com/store/apps/details?id=in.swiggy.android&referrer=utm_source%3Dswiggy%26utm_medium%3Dheader"
-              target="blank"
-              className="google-play"
-            >
+            <a style={{ marginRight: "30px" }} className="google-play">
               <img
                 height={"64px"}
                 width={"201px"}
@@ -34,11 +29,7 @@ export default function RestaurantFooter() {
                 alt="Google"
               />
             </a>
-            <a
-              href="https://apps.apple.com/in/app/swiggy-food-instamart-dineout/id989540920"
-              target="blank"
-              className="apple-store"
-            >
+            <a className="apple-store">
               <img
                 height={"64px"}
                 width={"186px"}
@@ -52,30 +43,30 @@ export default function RestaurantFooter() {
           <div className="restaurant-footer-details-logo">
             <div className="logoAndName">
               <div className="logo-container">
-                <SiSwiggy />
+                <SiQuicktime />
               </div>
               <p
                 style={{
-                  color: "orangered",
+                  color: "rgb(49, 49, 49)",
                   fontSize: "28px",
                   fontWeight: "700",
                 }}
               >
-                Swiggy
+                QuickBite
               </p>
             </div>
-            <p style={{ color: "#02060C99" }}>© 2025 Swiggy Limited</p>
+            <p style={{ color: "#02060C99" }}>© 2025 QuickBite Limited</p>
           </div>
           <div className="restaurant-footer-details-company">
             <ul>
               <p>Company</p>
               <li>About Us</li>
-              <li>Swiggy Corporate</li>
+              <li>QuickBite Corporate</li>
               <li>Team</li>
-              <li>Swiggy One</li>
-              <li>Swiggy Instamart</li>
-              <li>Swiggy Dineout</li>
-              <li>Swiggy Genie</li>
+              <li>QuickBite One</li>
+              <li>QuickBite Instamart</li>
+              <li>QuickBite Dineout</li>
+              <li>QuickBite Genie</li>
               <li>Minis</li>
               <li>Pyng</li>
             </ul>
@@ -109,30 +100,63 @@ export default function RestaurantFooter() {
               <li>Mumbai</li>
               <li>Pune</li>
               <li>
-                <div className="citiesDropdown" onClick={()=>setDown(!isDown)}>679 cities <RiArrowDropDownLine className={isDown && "down"}/></div>
+                <div
+                  className="citiesDropdown"
+                  onClick={() => setDown(!isDown)}
+                >
+                  679 cities{" "}
+                  <RiArrowDropDownLine className={isDown && "down"} />
+                </div>
               </li>
             </ul>
           </div>
           <div className="restaurant-footer-details-life ">
             <div className="life">
               <ul>
-              <p>Life at Swiggy</p>
-              <li>Explore with Swiggy</li>
-              <li>Swiggy News</li>
-              <li>Snackables</li>
-            </ul>
+                <p>Life at QuickBite</p>
+                <li>Explore with QuickBite</li>
+                <li>QuickBite News</li>
+                <li>Snackables</li>
+              </ul>
             </div>
             <div className="links">
               <ul>
-              <p>Social Links</p>
-              <li><div className="logos">
-                <img src="https://media-assets.swiggy.com/h_32/portal/m/seo/icon-linkedin.png" alt="" height={"17px"} width={"17px"}/>
-                <img src="https://media-assets.swiggy.com/h_32/portal/m/seo/icon-instagram.png" alt="" height={"17px"} width={"17px"}/>
-                <img src="https://media-assets.swiggy.com/h_32/portal/m/seo/icon-facebook.png" alt="" height={"15px"} width={"13px"}/>
-                <img src="https://media-assets.swiggy.com/h_32/portal/m/seo/icon-pinterest.png" alt=""height={"15px"} width={"17px"} />
-                <img src="https://media-assets.swiggy.com/h_32/portal/m/seo/icon-twitter.png" alt="" height={"15px"} width={"17px"} />
-                </div></li>
-            </ul>
+                <p>Social Links</p>
+                <li>
+                  <div className="logos">
+                    <img
+                      src="https://media-assets.swiggy.com/h_32/portal/m/seo/icon-linkedin.png"
+                      alt=""
+                      height={"17px"}
+                      width={"17px"}
+                    />
+                    <img
+                      src="https://media-assets.swiggy.com/h_32/portal/m/seo/icon-instagram.png"
+                      alt=""
+                      height={"17px"}
+                      width={"17px"}
+                    />
+                    <img
+                      src="https://media-assets.swiggy.com/h_32/portal/m/seo/icon-facebook.png"
+                      alt=""
+                      height={"15px"}
+                      width={"13px"}
+                    />
+                    <img
+                      src="https://media-assets.swiggy.com/h_32/portal/m/seo/icon-pinterest.png"
+                      alt=""
+                      height={"15px"}
+                      width={"17px"}
+                    />
+                    <img
+                      src="https://media-assets.swiggy.com/h_32/portal/m/seo/icon-twitter.png"
+                      alt=""
+                      height={"15px"}
+                      width={"17px"}
+                    />
+                  </div>
+                </li>
+              </ul>
             </div>
           </div>
         </div>

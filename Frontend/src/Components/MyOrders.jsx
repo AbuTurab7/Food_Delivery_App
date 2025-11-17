@@ -6,15 +6,17 @@ import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import { serverURL } from "./Home";
 import {
-  addToMyOrders,
   setDeliveryBoy,
   setOrderStatus,
   updateOrder,
 } from "../Utilities/authSlice";
 import toast from "react-hot-toast";
+import { MyOrderShimmer } from "./Shimmer";
 
 export const MyOrders = () => {
   const userData = useSelector((state) => state.authSlice.userData);
+  console.log(userData);
+  
   const myOrders = useSelector((state) => state.authSlice.myOrders);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -101,6 +103,14 @@ export const MyOrders = () => {
     getDeliveryBoys();
   }, []);
 
+  if(!userData){
+    return (
+      <div className="my-orders-main-container">
+        <MyOrderShimmer />
+      </div>
+    );
+  }
+
   return (
     <div className="my-orders-main-container">
       <div className="my-orders-container">
@@ -115,9 +125,11 @@ export const MyOrders = () => {
             />
             <h3>No orders yet</h3>
             <p>Looks like you haven’t placed any orders yet.</p>
-            <Link to="/">
-              <button className="order-now-btn">Order Now</button>
-            </Link>
+            {userData.role === "user" && (
+              <Link to="/">
+                <button className="order-now-btn">Order Now</button>
+              </Link>
+            )}
           </div>
         ) : (
           myOrders?.map((order, idx) => (
@@ -209,13 +221,13 @@ export const MyOrders = () => {
                     <p id="order-status" className={order.orderStatus}>
                       {order.orderStatus.replace(/_/g, " ")}
                     </p>
-                    
                   )}
-                  {
-                    (userData.role === "owner" && order.orderStatus === "Delivered") && <p id="order-status" className={order.orderStatus}>
-                      {order.orderStatus.replace(/_/g, " ")}
-                    </p>
-                  }
+                  {userData.role === "owner" &&
+                    order.orderStatus === "Delivered" && (
+                      <p id="order-status" className={order.orderStatus}>
+                        {order.orderStatus.replace(/_/g, " ")}
+                      </p>
+                    )}
                 </div>
               </div>
 
@@ -249,15 +261,23 @@ export const MyOrders = () => {
                 </div>
               </div>
 
-              
-
               <div className="my-order-footer">
-                {userData.role === "user" ? (
-                  <button onClick={() => navigate(`order-details/${order._id}`)}>Track order</button>
-                ) : 
-                order?.assignedAt ? (
-                  <button onClick={() => navigate(`order-details/${order._id}`)}>Track order</button>
-                ) : (
+                {userData.role === "user" &&
+                  (order.orderStatus === "Delivered" ||
+                    order.orderStatus === "Out_for_delivery") && (
+                    <button
+                      onClick={() => navigate(`order-details/${order._id}`)}
+                    >
+                      Track order
+                    </button>
+                  )}
+                {userData.role === "owner" && order?.assignedAt ? (
+                  <button
+                    onClick={() => navigate(`order-details/${order._id}`)}
+                  >
+                    Track order
+                  </button>
+                ) : userData.role === "owner" ? (
                   <button
                     onClick={() =>
                       handleAssign({
@@ -268,7 +288,7 @@ export const MyOrders = () => {
                   >
                     Assign To Delivery Partner{" "}
                   </button>
-                )}
+                ) : null}
               </div>
             </div>
           ))
