@@ -6,7 +6,7 @@ import "./Home.css";
 import { Routes, Route } from "react-router";
 import { useState } from "react";
 import { Coordinates } from "./ContextApi";
-import { UseGetCurrentUser } from "../hooks/useGetCurrentUser";
+import { UseGetCurrentUser } from "../hooks/UseGetCurrentUser";
 import { useSelector } from "react-redux";
 import { CheckOutPage } from "./CheckOutPage";
 import { OrderPlaced } from "./OrderPlaced";
