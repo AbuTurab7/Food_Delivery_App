@@ -16,7 +16,7 @@ import { DeliveryBoyOrder } from "./DeliveryBoyOrder";
 import { OrderDetails } from "./OrderDetails";
 import InDevelopment from "./InDevelopment";
 
-export const serverURL = "http://localhost:3000";
+export const serverURL = "https://quickbite-backend-7v9t.onrender.com";
 export default function Home() {
   const [coords, setCoords] = useState(() => ({
     lat: 26.7617171,
