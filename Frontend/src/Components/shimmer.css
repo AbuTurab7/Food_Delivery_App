@@ -78,8 +78,7 @@
 .shimmer-img,
 .rest-shimmer-img,
 .shimmer-title,
-.shimmer-detail,
-.rest-shimmer-card {
+.shimmer-detail {
   background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
   background-size: 800px 104px;
   animation: shimmerEffect 1.2s infinite linear;
@@ -115,10 +114,7 @@
   justify-content: center;
   flex-direction: column;
 }
-.rest-shimmer-card{
-  height: 250px;
-  background-color: gray;
-}
+
 /* 📱 Responsive tweaks */
 @media (max-width: 768px) {
   .upper-shimmer h4 {

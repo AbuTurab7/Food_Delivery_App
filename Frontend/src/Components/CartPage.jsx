@@ -51,12 +51,6 @@ export default function CartPage() {
     dispatch(clearCart());
   }
 
-  // function handleOrder() {
-  //   toast.success("Order Placed , Thank You!");
-  //   handleClearCart();
-  // }
-
-  
   if (cart.length <= 0) {
     return (
       <div className="empty-cart-main-container">
@@ -119,9 +113,6 @@ export default function CartPage() {
                   <p className="item-quantity">{item?.quantity} </p>
                   <div className="add-item-btn" onClick={() => dispatch(increaseQuantity(i))}>+</div>
                 </div>
-                {/* <button id="cart-item-btn" onClick={() => handleRemoveCart(i)}>
-                  Remove
-                </button> */}
               </div>
             </div>
           </div>

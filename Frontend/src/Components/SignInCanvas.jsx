@@ -22,7 +22,7 @@ export default function SignInCanvas({ show, handleClose }) {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPass, setShowPass] = useState(false);
-  const [isGoogleLogin, setIsGoogleLogin] = useState(false);
+  // const [isGoogleLogin, setIsGoogleLogin] = useState(false);
   const [error, setError] = useState(null);
   const [forgotPasswordMode, setForgotPasswordMode] = useState(""); //""
 
@@ -173,7 +173,7 @@ export default function SignInCanvas({ show, handleClose }) {
     }
   };
 
-  const handleGoogleAuth = async (e) => {
+  const handleGoogleAuth = async (e , isGoogleLogin) => {
     e.preventDefault();
     setError(null);
     if (!isGoogleLogin && !validateMobile()) return;
@@ -449,8 +449,8 @@ export default function SignInCanvas({ show, handleClose }) {
               <button
                 className="google-btn"
                 onClick={(e) => {
-                  setIsGoogleLogin(true);
-                  handleGoogleAuth(e);
+                  // setIsGoogleLogin(true);
+                  handleGoogleAuth(e , true);
                 }}
               >
                 <FcGoogle id="googleLogo" /> Log in with google

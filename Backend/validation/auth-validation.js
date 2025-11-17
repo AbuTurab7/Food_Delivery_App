@@ -25,7 +25,6 @@ const mobileSchema = z
 export const loginValidation = z.object({
   email: emailSchema,
   password: passwordSchema,
-  mobile: mobileSchema
 });
 
 export const registrationValidation = loginValidation.extend({

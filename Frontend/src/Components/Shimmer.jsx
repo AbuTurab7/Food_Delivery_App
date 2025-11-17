@@ -1,7 +1,7 @@
 import "./shimmer.css";
+import LoginError from "../assets/LoginError.webp"
 
 export default function Shimmer() {
-
   return (
     <div className="shimmer-main-container">
       <div className="upper-shimmer">
@@ -20,7 +20,7 @@ export default function Shimmer() {
         <div className="lower-shimmer">
           {Array(8)
             .fill("")
-            .map((_,i) => (
+            .map((_, i) => (
               <div className="shimmer-card" key={i}>
                 <div className="shimmer-img"></div>
                 <div className="shimmer-title"></div>
@@ -33,32 +33,31 @@ export default function Shimmer() {
     </div>
   );
 }
-export  function RestShimmer(){
-    return (
-        <div className="rest-shimmer">
-          {Array(2)
-            .fill("")
-            .map((_,i) => (
-              <div className="rest-shimmer-card" key={i}>
-                <div className="rest-shimmer-img"></div>
-                <div className="shimmer-title"></div>
-                <div className="shimmer-detail"></div>
-                <div className="shimmer-detail"></div>
-              </div>
-            ))}
-        </div>
-    );
+export function RestShimmer() {
+  return (
+    <div className="rest-shimmer">
+      {Array(2)
+        .fill("")
+        .map((_, i) => (
+          <div className="rest-shimmer-card" key={i}>
+            <div className="rest-shimmer-img"></div>
+            <div className="shimmer-title"></div>
+            <div className="shimmer-detail"></div>
+            <div className="shimmer-detail"></div>
+          </div>
+        ))}
+    </div>
+  );
 }
 
-export function MyOrderShimmer(){
+export function MyOrderShimmer() {
   return (
     <div className="myOrder-shimmer">
-          {Array(2)
-            .fill("")
-            .map((_,i) => (
-              <div className="rest-shimmer-card" key={i}>
-              </div>
-            ))}
-        </div>
-  )
+      <div className="dev-card">
+        <img src={LoginError} alt="please Login" className="dev-image" />
+        <h1>Please Login</h1>
+        <p>You must be logged in to access this page.</p>
+      </div>
+    </div>
+  );
 }

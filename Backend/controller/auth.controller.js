@@ -1,4 +1,3 @@
-import { email } from "zod";
 import {
   authenticateUser,
   comparePassword,
@@ -67,7 +66,7 @@ export const postLogin = async (req, res) => {
     if (error) {
       return res.status(400).json({ message: error.issues[0].message });
     }
-    const { email, password } = data;
+    const { email, password } = data;    
 
     const user = await findUserByEmail(email);
     if (!user) {
