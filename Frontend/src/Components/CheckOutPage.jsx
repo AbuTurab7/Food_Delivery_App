@@ -23,7 +23,13 @@ import { serverURL } from "./Home";
 import { clearCart } from "../Utilities/cartSlice";
 import { UseGetMyOrders } from "../hooks/UseGetMyOrders";
 import { addToMyOrders } from "../Utilities/authSlice";
+import marker from "../assets/scooter.png";
 // import { addToMyOrders } from "../Utilities/orderSlice";
+const markerIcon = new L.Icon({
+  iconUrl: marker,
+  iconSize: [40, 40],
+  iconAnchor: [20, 20],
+});
 
 export function CheckOutPage() {
   const [paymentMode, setPaymentMode] = useState("COD");
@@ -229,6 +235,7 @@ export function CheckOutPage() {
                   />
                   <RecenterMap location={location} />
                   <Marker
+                    icon={markerIcon}
                     position={position}
                     draggable
                     eventHandlers={{ dragend: handleDragEnd }}
