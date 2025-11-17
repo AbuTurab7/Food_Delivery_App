@@ -8,8 +8,6 @@ import { useState } from "react";
 import { Coordinates } from "./ContextApi";
 import { UseGetCurrentUser } from "../hooks/useGetCurrentUser";
 import { useSelector } from "react-redux";
-import { DeliveryBoy } from "./DeliveryBoy";
-import { OwnerDashboard } from "./OwnerDashboard";
 import { CheckOutPage } from "./CheckOutPage";
 import { OrderPlaced } from "./OrderPlaced";
 import { MyOrders } from "./MyOrders";
@@ -34,14 +32,12 @@ export default function Home() {
      if (userData?.role === "owner") {
     return (
       <>
-    {/* <Route path="/" element={<OwnerDashboard />} /> */}
     <Route path="/" element={<MyOrders />} />
     </>
     );
   } else if (userData?.role === "deliveryBoy") {
    return (
       <>
-    {/* <Route path="/" element={<DeliveryBoy />} /> */}
     <Route path="/" element={<DeliveryBoyOrder />} />
     </>
     );
@@ -65,11 +61,6 @@ export default function Home() {
       <div className="main-content">
         <Routes>
           {getDashBoard()}
-          {/* {
-            <Route path="/" element={<Body />} />
-          <Route path="/restaurant/:id" element={<Restaurant />} />
-          <Route path="/restaurant/cart" element={<CartPage />} />
-          } */}
           <Route path="/my-orders/order-details/:id" element={<OrderDetails />} />
           <Route path="*" element={<InDevelopment />} />
         </Routes>

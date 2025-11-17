@@ -15,8 +15,6 @@ import { MyOrderShimmer } from "./Shimmer";
 
 export const MyOrders = () => {
   const userData = useSelector((state) => state.authSlice.userData);
-  console.log(userData);
-  
   const myOrders = useSelector((state) => state.authSlice.myOrders);
   const dispatch = useDispatch();
   const navigate = useNavigate();

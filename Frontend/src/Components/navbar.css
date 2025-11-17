@@ -152,13 +152,15 @@ p {
 /* owner navbar  */
 
 .ownerNavbar-main-container{
-  /* border: 2px solid red; */
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 10px 10%;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
   background-color: white;
+  position: sticky;
+  top: 0;
+  z-index: 999 !important;
 }
 /* Responsive adjustments */
 @media (max-width: 914px) {
