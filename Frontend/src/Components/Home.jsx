@@ -6,7 +6,8 @@ import "./Home.css";
 import { Routes, Route } from "react-router";
 import { useState } from "react";
 import { Coordinates } from "./ContextApi";
-import { UseGetCurrentUser } from "../hooks/useGetCurrentUser";
+// import { UseGetCurrentUser } from "../hooks/useGetCurrentUser";
+import { UseGetCurrentUser } from "../hooks/UseGetCurrentUser";
 import { useSelector } from "react-redux";
 import { CheckOutPage } from "./CheckOutPage";
 import { OrderPlaced } from "./OrderPlaced";
@@ -16,7 +17,8 @@ import { DeliveryBoyOrder } from "./DeliveryBoyOrder";
 import { OrderDetails } from "./OrderDetails";
 import InDevelopment from "./InDevelopment";
 
-export const serverURL = "http://localhost:3000";
+// export const serverURL = "http://localhost:3000";
+export const serverURL = "https://quickbite-backend-7v9t.onrender.com";
 export default function Home() {
   const [coords, setCoords] = useState(() => ({
     lat: 26.7617171,
