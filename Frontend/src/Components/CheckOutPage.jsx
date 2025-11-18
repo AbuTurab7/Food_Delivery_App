@@ -21,7 +21,6 @@ import { setAddress, setLocation } from "../Utilities/mapSlice";
 import { serverURL } from "./Home";
 import { clearCart } from "../Utilities/cartSlice";
 import { addToMyOrders } from "../Utilities/authSlice";
-
 const markerIcon = new L.Icon({
   iconUrl: marker,
   iconSize: [40, 40],
