@@ -56,10 +56,7 @@ export const DeliveryBoyOrder = () => {
           alt="No orders"
         />
         <h3>No orders yet</h3>
-        <p>Looks like you haven’t placed any orders yet.</p>
-        <Link to="/">
-          <button className="order-now-btn">Order Now</button>
-        </Link>
+        <p>You haven't received any delivery assignments yet.</p>
       </div>
     );
   }

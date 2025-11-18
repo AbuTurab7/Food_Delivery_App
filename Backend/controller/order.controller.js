@@ -103,8 +103,10 @@ export const getMyOrders = async (req, res) => {
         .populate("userId", "fullname mobile email")
         .populate("restaurant.id")
         .sort({ createdAt: -1 });
-      // console.log("order : ", order);
 
+      return res.status(201).json(order);
+    } else if(req.user.role === "user") {
+      const order = await Order.find({userId : req.user.userId });
       return res.status(201).json(order);
     } else {
       const order = await Order.find({});
@@ -124,7 +126,6 @@ export const postUpdateOrderStatus = async (req, res) => {
         .json({ message: "User not found! , Please login." });
     const { orderId } = req.params;
     const { status } = req.body;
-    // console.log("os" , status);
 
     const order = await Order.findById(orderId);
     if (!order) return res.status(400).json({ message: "Order not found!" });

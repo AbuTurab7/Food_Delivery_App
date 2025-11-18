@@ -11,7 +11,7 @@ export default function InDevelopment() {
           className="dev-image"
         />
         <h1>Page Under Development</h1>
-        <p>We're building this page. Please check back soon!</p>
+        <p style={{color:"#666"}}>We're building this page. Please check back soon!</p>
       </div>
     </div>
   );

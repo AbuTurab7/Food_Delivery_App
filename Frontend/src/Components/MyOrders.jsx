@@ -122,12 +122,13 @@ export const MyOrders = () => {
               alt="No orders"
             />
             <h3>No orders yet</h3>
-            <p>Looks like you haven’t placed any orders yet.</p>
-            {userData.role === "user" && (
+            {userData.role === "user" ? (
+              <>
+              <p>Looks like you haven’t placed any orders yet.</p>
               <Link to="/">
                 <button className="order-now-btn">Order Now</button>
-              </Link>
-            )}
+              </Link></>
+            ) : <p>Looks like you haven’t received any orders yet.</p>}
           </div>
         ) : (
           myOrders?.map((order, idx) => (
@@ -217,7 +218,7 @@ export const MyOrders = () => {
                     </DropdownButton>
                   ) : (
                     <p id="order-status" className={order.orderStatus}>
-                      {order.orderStatus.replace(/_/g, " ")}
+                      {order.orderStatus === "Pending" ? "Order placed" : order.orderStatus.replace(/_/g, " ")}
                     </p>
                   )}
                   {userData.role === "owner" &&
@@ -258,7 +259,6 @@ export const MyOrders = () => {
                   ))}
                 </div>
               </div>
-
               <div className="my-order-footer">
                 {userData.role === "user" &&
                   (order.orderStatus === "Delivered" ||

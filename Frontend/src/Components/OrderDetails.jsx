@@ -89,7 +89,6 @@ export const OrderDetails = () => {
       <div className="my-orders-container">
         <div className="body">
           <div className="order-details">
-            {/* <div className="order-details-header"> */}
             <div className="order-detail-left">
               <p>Order #{order?._id?.slice(0, 6)}</p>
               <p>{order?.createdAt?.slice(0, 10)}</p>
@@ -97,7 +96,7 @@ export const OrderDetails = () => {
             <div className="order-detail-right">
               <p>{order?.paymentMode}</p>
               {order.orderStatus !== "Delivered" ? (
-                <p style={{ color: "blue" }}>Pending</p>
+                <p style={{ color: "blue" }}>Out for delivery</p>
               ) : (
                 <p style={{ color: "green" }}>Completed</p>
               )}

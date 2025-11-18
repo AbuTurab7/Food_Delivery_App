@@ -6,7 +6,6 @@ import "./Home.css";
 import { Routes, Route } from "react-router";
 import { useState } from "react";
 import { Coordinates } from "./ContextApi";
-// import { UseGetCurrentUser } from "../hooks/useGetCurrentUser";
 import { UseGetCurrentUser } from "../hooks/UseGetCurrentUser";
 import { useSelector } from "react-redux";
 import { CheckOutPage } from "./CheckOutPage";
@@ -17,8 +16,8 @@ import { DeliveryBoyOrder } from "./DeliveryBoyOrder";
 import { OrderDetails } from "./OrderDetails";
 import InDevelopment from "./InDevelopment";
 
-// export const serverURL = "http://localhost:3000";
-export const serverURL = "https://quickbite-backend-7v9t.onrender.com";
+export const serverURL = "http://localhost:3000";
+// export const serverURL = "https://quickbite-backend-7v9t.onrender.com";
 export default function Home() {
   const [coords, setCoords] = useState(() => ({
     lat: 26.7617171,
@@ -35,12 +34,14 @@ export default function Home() {
     return (
       <>
     <Route path="/" element={<MyOrders />} />
+    <Route path="/order-details/:id" element={<OrderDetails />} />
     </>
     );
   } else if (userData?.role === "deliveryBoy") {
    return (
       <>
     <Route path="/" element={<DeliveryBoyOrder />} />
+    <Route path="/order-details/:id" element={<OrderDetails />} />
     </>
     );
   } else {
@@ -52,6 +53,7 @@ export default function Home() {
       <Route path="/restaurant/cart/checkout" element={<CheckOutPage />} />
       <Route path="/order-placed" element={<OrderPlaced />} />
       <Route path="/my-orders" element={<MyOrders />} />
+      <Route path="/my-orders/order-details/:id" element={<OrderDetails />} />
     </>
     );
   }
@@ -63,7 +65,7 @@ export default function Home() {
       <div className="main-content">
         <Routes>
           {getDashBoard()}
-          <Route path="/my-orders/order-details/:id" element={<OrderDetails />} />
+          
           <Route path="*" element={<InDevelopment />} />
         </Routes>
       </div>
