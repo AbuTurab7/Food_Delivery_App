@@ -14,8 +14,8 @@ const app = express();
 
 // cors 
 app.use(cors({
-    origin: "http://localhost:5173",
-    //  origin: "https://quickbite-7qv3.onrender.com",
+    // origin: "http://localhost:5173",
+     origin: "https://quickbite-7qv3.onrender.com",
     credentials: true
 }))
 
