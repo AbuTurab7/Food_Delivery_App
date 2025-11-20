@@ -27,7 +27,6 @@ export default function Home() {
   UseGetMyOrders();
 
   const userData = useSelector((state) => state.authSlice.userData);
-  console.log(userData);
 
   const getDashBoard = () => {
      if (userData?.role === "owner") {

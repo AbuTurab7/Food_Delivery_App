@@ -1,4 +1,3 @@
-/* Navbar Base */
 .navbar {
   height: 80px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
@@ -7,7 +6,6 @@
   z-index: 999 !important;
 }
 
-/* Logo + Location Container */
 .logo-drop-container {
   display: flex;
   align-items: center;
@@ -59,7 +57,6 @@
   color: orangered;
 }
 
-/* Nav Links */
 .navLink-container {
   width: 100%;
   margin-left: 0;
@@ -107,21 +104,21 @@ p {
   background-color: transparent;
   cursor: pointer;
 }
-/* Navbar Base - make it fixed */
+
 .navbar {
-  position: fixed; /* Fix navbar at top */
+  position: fixed; 
   top: 0;
   left: 0;
   right: 0;
   height: 80px;
   z-index: 1000;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
-  background-color: white; /* Ensure navbar has a background */
+  background-color: white; 
   display: flex;
   align-items: center;
 }
 
-/* Adjust logo + address container */
+
 .logo-drop-container {
   display: flex;
   align-items: center;
@@ -129,7 +126,6 @@ p {
   width: 35%;
 }
 
-/* Navbar links container */
 .navLink-container {
   display: flex;
   align-items: center;
@@ -137,7 +133,6 @@ p {
   width: 100%;
 }
 
-/* Hamburger container for mobile */
 .hamburger-container {
   font-size: 26px;
   color: #333;
@@ -146,10 +141,6 @@ p {
   display: flex;
   align-items: center;
 }
-
-
-
-/* owner navbar  */
 
 .ownerNavbar-main-container{
   display: flex;
@@ -162,7 +153,8 @@ p {
   top: 0;
   z-index: 999 !important;
 }
-/* Responsive adjustments */
+
+
 @media (max-width: 914px) {
   .navbar {
     height: auto;
@@ -194,7 +186,7 @@ p {
   }
 }
 
-/* Hamburger menu only on mobile */
+
 .hamburger-container {
   font-size: 26px;
   color: #333;
@@ -206,11 +198,10 @@ p {
 
 @media (min-width: 915px) {
   .hamburger-container {
-    display: none; /* hide on desktop */
+    display: none; 
   }
 }
 
-/* Offcanvas styles */
 .offcanvas {
   width: 250px !important;
 }
@@ -229,11 +220,7 @@ p {
   color: orangered;
 }
 
-/* ------------------------------
-   RESPONSIVE STYLES
---------------------------------*/
 
-/* Tablet (≤1024px) */
 @media (max-width: 1024px) {
   .logo-drop-container {
     margin-left: 20px;
@@ -255,14 +242,12 @@ p {
   }
 }
 
-/* Mobile & Tablet (≤800px) */
 @media (max-width: 914px) {
   .navbar {
     height: auto;
     padding: 8px 12px;
   }
 
-  /* Logo + Address left side */
   .logo-drop-container {
     margin-left: 0;
     width: auto;
@@ -279,7 +264,6 @@ p {
     font-size: 24px;
   }
 
-  /* Only show "Other" + arrow, hide address */
   #navbar-address {
     display: none;
   }
@@ -288,7 +272,6 @@ p {
     font-size: 13px;
   }
 
-  /* USER + CART → Right corner */
   .navLink-container {
     flex-direction: row;
     justify-content: flex-end;
@@ -306,7 +289,6 @@ p {
     font-size: 20px;
   }
 
-  /* Hide big nav links on topbar */
   .corporate-container,
   .offer-container,
   .search-container,
@@ -314,7 +296,6 @@ p {
     display: none;
   }
 
-  /* Let Bootstrap collapse (hamburger menu) handle hidden links */
   .navbar-collapse {
     background-color: #fff;
     padding: 10px;
@@ -333,7 +314,6 @@ p {
   }
 }
 
-/* Extra Small (≤480px) */
 @media (max-width: 480px) {
   .navbar {
     padding: 6px 10px;

@@ -21,6 +21,7 @@ import { sendOtpEmail } from "../utils/nodemailer.js";
 export const postRegistration = async (req, res) => {
   try {
     const { success, data, error } = registrationValidation.safeParse(req.body);
+    const { mobile } = req.body;
 
     if (!success) {
       const fieldErrors = {};
@@ -30,7 +31,7 @@ export const postRegistration = async (req, res) => {
       return res.status(400).json({ errors: fieldErrors });
     }
 
-    const { fullname, email, password, mobile, role } = data;
+    const { fullname, email, password, role } = data;
 
     let user = await findUserByEmail(email);
     if (user) {
@@ -46,8 +47,6 @@ export const postRegistration = async (req, res) => {
       mobile,
       role,
     });
-
-    // console.log("USer : " , user);
     
     await authenticateUser({ res, user });
 

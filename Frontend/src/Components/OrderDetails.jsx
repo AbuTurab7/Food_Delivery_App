@@ -20,10 +20,6 @@ export const OrderDetails = () => {
   const userData = useSelector((state) => state.authSlice.userData);
   const myOrders = useSelector((state) => state.authSlice.myOrders);
   const order = myOrders.find((o) => o._id === id);
-
-  // console.log(userData);
-  // console.log(order);
-
   const dispatch = useDispatch();
   const [error, setError] = useState(null);
   const [modalShow, setModalShow] = useState(false);
@@ -34,7 +30,6 @@ export const OrderDetails = () => {
   const handleSendDeliveryOTP = async () => {
     setBtnDisabled(true);
     setError(null);
-    console.log(order.userId.email);
     
     try {
       const res = await fetch(`${serverURL}/api/send-delivery-otp/${order._id}`, {
@@ -48,7 +43,6 @@ export const OrderDetails = () => {
         setError(result.message);
         return;
       }
-      console.log(result);
       toast.success(result.message);
        setModalShow(true);
        setBtnDisabled(false);

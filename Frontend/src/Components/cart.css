@@ -179,7 +179,7 @@
   text-decoration: none !important;
 }
 
-/* Responsive adjustments */
+
 @media (max-width: 768px) {
   .cart-main-container {
     width: 95%;

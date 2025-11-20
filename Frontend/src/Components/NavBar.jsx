@@ -33,22 +33,14 @@ import { serverURL } from "./Home";
 export default function NavBar() {
   const cart = useSelector((state) => state.cartSlice.cartItems);
   const userData = useSelector((state) => state.authSlice.userData);
-  // console.log(userData);
-
   const [address, setAddress] = useState("Lucknow, Uttar Pradesh 4800");
-
-  /*  State for LocationOffcanvas */
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleAddress = (data) => setAddress(data);
-
-  /*  State for SignIncanvas */
   const [showSignIn, setShowSignIn] = useState(false);
   const handleCloseSignIn = () => setShowSignIn(false);
   const handleShowSignIn = () => setShowSignIn(true);
-
-  /*  State for Hamburger Offcanvas */
   const [showMenu, setShowMenu] = useState(false);
   const handleMenuClose = () => setShowMenu(false);
   const handleMenuShow = () => setShowMenu(true);
@@ -263,8 +255,6 @@ export default function NavBar() {
                 />
               </>
             )}
-
-            {/* ✅ Cart */}
             <Nav.Link href="/restaurant/cart">
               <IoBagOutline /> Cart [{cart.length}]
             </Nav.Link>

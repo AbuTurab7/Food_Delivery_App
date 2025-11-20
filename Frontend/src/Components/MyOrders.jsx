@@ -34,7 +34,6 @@ export const MyOrders = () => {
         setError(result.message);
         return;
       }
-      console.log(result);
       setDeliveryBoys(result);
     } catch (error) {
       console.error("Error in getting delivery boys:", error);
@@ -96,7 +95,6 @@ export const MyOrders = () => {
       setError("There's an issue in assigning deliver boy");
     }
   };
-  console.log(deliveryBoys);
   useEffect(() => {
     getDeliveryBoys();
   }, []);

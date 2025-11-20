@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 export default function RestaurantsList({ restaurants }) {
   const filterVal = useSelector((state) => state.filterSlice?.filterVal);
 
-
   const filteredData =
     restaurants[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants.filter(
       (item) => {

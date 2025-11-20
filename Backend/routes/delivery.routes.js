@@ -6,7 +6,6 @@ import { getAllDeliveryBoys, postAssignDeliveryBoy, postSendDeliveryOTP, postVer
 const deliveryRouter = Router();
 
 deliveryRouter.route("/all-delivery-boys").get(verifyAuthentication , getAllDeliveryBoys);
-// deliveryRouter.route("/get-my-orders").get(verifyAuthentication ,getMyOrders);
 deliveryRouter.route("/:orderId/assign-delivery-boy").post(verifyAuthentication ,postAssignDeliveryBoy);
 deliveryRouter.route("/send-delivery-otp/:orderId").post(verifyAuthentication ,postSendDeliveryOTP);
 deliveryRouter.route("/verify-delivery-otp/:orderId").post(verifyAuthentication ,postVerifyDeliveryOTP);

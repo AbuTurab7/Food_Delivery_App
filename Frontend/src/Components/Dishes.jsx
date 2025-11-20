@@ -6,13 +6,12 @@ export default function Dishes({ images }) {
   const [value, setValue] = useState(0); 
   const [show, setShow] = useState(true);
 
-  // Check screen width
   useEffect(() => {
     const handleResize = () => {
       setShow(window.innerWidth >= 1200);
     };
 
-    handleResize(); // initial check
+    handleResize(); 
     window.addEventListener("resize", handleResize);
 
     return () => window.removeEventListener("resize", handleResize);
@@ -26,7 +25,7 @@ export default function Dishes({ images }) {
     value <= -60 ? "" : setValue((prev) => prev - 40);
   }
 
-  if (!show) return null; // Don't render on small screens
+  if (!show) return null; 
 
   return (
     <div className="Dishes-Container">

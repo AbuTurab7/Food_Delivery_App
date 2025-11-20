@@ -1,6 +1,5 @@
-/* Location Offcanvas ONLY */
 .location-offcanvas.custom-offcanvas {
-  width: 38% !important;  /* default laptop/desktop */
+  width: 38% !important;  
 }
 
 .location-offcanvas .offCanvas-main-container {
@@ -8,7 +7,6 @@
   width: 85%;
 }
 
-/* Input */
 .location-offcanvas #offCanvas-input {
   font-size: 14px;
   height: 55px;
@@ -16,7 +14,6 @@
   width: 100%;
 }
 
-/* Cancel button */
 .location-offcanvas #cancel-btn {
   position: absolute;
   top: 13%;
@@ -28,7 +25,6 @@
   cursor: pointer;
 }
 
-/* Results list */
 .location-offcanvas .offCanvas-result-container {
   margin-top: 5%;
   padding: 20px;
@@ -63,7 +59,6 @@
   color: #FF5200;
 }
 
-/* Secondary text */
 .location-offcanvas .secondary-text {
   font-size: 13px;
   color: #02060C80;
@@ -85,7 +80,6 @@
   100%{transform: rotate(1turn)}
 }
 
-/* Large desktops */
 @media (min-width: 1600px) {
   .location-offcanvas.custom-offcanvas { width: 40% !important; }
   .location-offcanvas .offCanvas-main-container { width: 80%; }
@@ -93,27 +87,26 @@
   .location-offcanvas #cancel-btn { font-size: 16px; }
 }
 
-/* Medium laptops */
+
 @media (min-width: 1200px) and (max-width: 1599px) {
   .location-offcanvas.custom-offcanvas { width: 38% !important; }
   .location-offcanvas .offCanvas-main-container { width: 85%; }
   .location-offcanvas #offCanvas-input { font-size: 14px; height: 58px; }
 }
 
-/* Tablets */
+
 @media (max-width: 1199px) {
   .location-offcanvas.custom-offcanvas { width: 60% !important; }
   .location-offcanvas .offCanvas-main-container { width: 90%; }
   .location-offcanvas #offCanvas-input { font-size: 14px; height: 55px; }
 }
 
-/* Small tablets / landscape mobiles */
 @media (max-width: 992px) {
   .location-offcanvas.custom-offcanvas { width: 60% !important; }
   .location-offcanvas .offCanvas-main-container { width: 95%; }
 }
 
-/* Mobiles */
+
 @media (max-width: 768px) {
   .location-offcanvas.custom-offcanvas { width: 80% !important; }
   .location-offcanvas .offCanvas-main-container { width: 100%; }
@@ -121,7 +114,7 @@
   .location-offcanvas #cancel-btn { font-size: 14px; }
 }
 
-/* Very small mobiles */
+
 @media (max-width: 480px) {
   .location-offcanvas.custom-offcanvas { width: 90% !important; }
   .location-offcanvas .offCanvas-main-container { width: 100%; margin: 2% auto; }

@@ -1,12 +1,9 @@
 .filtered-menu-card-container {
-  /* margin-top: 10px; */
   border-bottom: 16px solid #F1F1F6;
 }
 .custom-accordion .accordion-item {
   border: none;
-  /* border-bottom: 16px solid #02060c24; */
   border-radius: 0;
-  /* background-color: #f0f0f0; */
 }
 .custom-accordion-nested .accordion-item {
   border: none;
@@ -47,13 +44,11 @@
   color: rgb(232, 105, 105);
 }
 .filtered-menu-card-details {
-  /* border: 2px solid rgb(0, 255, 17); */
   max-width: 75%;
   padding: 10px;
   overflow-wrap: break-word;
 }
 .filtered-menu-card-image-container {
-  /* border: 2px solid rgb(0, 0, 255); */
   position: relative;
   height: 200px;
   padding: 10px;
@@ -174,20 +169,16 @@
   border: none;
 }
 
-
-/* -------- Base stays same -------- */
-
-/* ✅ Tablet (≤996px) */
 @media (max-width: 996px) {
   .filtered-menu-card {
-    flex-direction: row; /* keep row layout */
+    flex-direction: row;
     align-items: center;
     min-height: auto;
     gap: 10px;
   }
 
   .filtered-menu-card-details {
-    max-width: 60%; /* details take majority */
+    max-width: 60%; 
     padding: 5px;
   }
 
@@ -227,16 +218,15 @@
   }
 }
 
-/* ✅ Mobile (≤600px) */
+
 @media (max-width: 600px) {
   .filtered-menu-card {
-    flex-direction: column; /* switch only on small mobiles */
+    flex-direction: column; 
     align-items: flex-start;
   }
 
   .filtered-menu-card-details {
     max-width: 100%;
-    /* padding: 5px; */
   }
 
   .filtered-menu-card-details p {

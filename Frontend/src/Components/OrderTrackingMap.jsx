@@ -48,7 +48,6 @@ export function OrderTrackingMap(order) {
         }`
       );
       const result = await res.json();
-      console.log(result);
 
       setRestCoords({
         restLat: result?.results?.[0]?.lat,

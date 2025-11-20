@@ -60,7 +60,6 @@
   font-weight: 600;
 }
 
-/* Status color (for text users see) */
 #order-status.Pending {
   color: #007bff;
 }
@@ -207,8 +206,6 @@
   color: white !important;
 }
 
-
-/* RESPONSIVE DESIGN */
 @media (max-width: 1024px) {
   .my-orders-container {
     width: 70%;

@@ -33,9 +33,6 @@ export default function CartPage() {
   function handleRemoveCart(idx) {
     if (cart.length > 1 || cart[idx].quantity > 1) {
       dispatch(decreaseQuantity(idx));
-    //   const updatedCart = [...cart];
-    //   updatedCart.splice(idx, 1);
-    //   dispatch(deleteItem(updatedCart));
       toast(() => (
         <span style={{ display: "flex", gap: "5px" }}>
           <FaRegTrashCan style={{ color: "red" }} />

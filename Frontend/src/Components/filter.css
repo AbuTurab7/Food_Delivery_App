@@ -1,4 +1,4 @@
-/* Main Filter Container */
+
 .filter-main-container {
   margin-top: 10px;
   margin-bottom: 10px;
@@ -8,7 +8,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-} /* Individual Filter Button */
+} 
 .filter-container {
   border: 1px solid rgba(158, 156, 156, 0.452);
   border-radius: 20px;
@@ -31,7 +31,8 @@
 }
 .Active .crossIcon {
   display: block;
-} /* Modal Styling */
+} 
+
 .filter-modal .modal-content {
   max-height: 450px;
 }
@@ -83,7 +84,8 @@
   display: flex;
   gap: 5px;
   cursor: pointer;
-} /* Modal Apply/Clear Buttons */
+} 
+
 .modal-filter-btn {
   box-shadow: 0 0 10px rgba(156, 156, 156, 0.562);
   background-color: white;
@@ -115,7 +117,7 @@
 }
 .hide {
   display: none;
-} /* Filter Slider Images */
+} 
 .filter-container-slider {
   background-color: gray;
   height: 10px;
@@ -133,7 +135,8 @@
 }
 .filter-container img.On {
   left: 31px;
-} /* Responsive Media Queries */ /* Tablets (768px - 1199px) */
+} 
+
 @media (max-width: 1199px) {
   .filter-inside-container {
     flex-wrap: wrap;
@@ -157,7 +160,8 @@
   #clear-filter-btn {
     font-size: 14px;
   }
-} /* Mobile (less than 767px) */
+} 
+
 @media (max-width: 767px) {
   .filter-inside-container {
     flex-direction: column;

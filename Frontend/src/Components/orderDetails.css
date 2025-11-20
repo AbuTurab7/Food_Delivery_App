@@ -61,7 +61,6 @@
   background-color: #ff5414;
 }
 
-/* OTP Modal */
 #deliveryOTP-modal {
   width: 100%;
   max-width: 500px;
@@ -121,7 +120,7 @@
   padding-top: 10px;
 }
 
-/* 🔻 Responsive Styles */
+
 @media (max-width: 768px) {
   .my-orders-container .body {
     width: 95%;

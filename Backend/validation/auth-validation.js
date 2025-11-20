@@ -16,11 +16,6 @@ const passwordSchema = z
   .trim()
   .min(6, { message: "Password must be at least 6 characters long." })
   .max(20, { message: "Password must be no more than 20 characters." });
-const mobileSchema = z
-  .string()
-  .trim()
-  .min(10, { message: "Invalid mobile number." })
-  .max(10, { message: "Invalid mobile number." });
 
 export const loginValidation = z.object({
   email: emailSchema,
@@ -29,7 +24,6 @@ export const loginValidation = z.object({
 
 export const registrationValidation = loginValidation.extend({
   fullname: nameSchema,
-
   role: z.string(),
 });
 

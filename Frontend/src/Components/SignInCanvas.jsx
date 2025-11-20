@@ -11,8 +11,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../Utilities/authSlice";
 
 export default function SignInCanvas({ show, handleClose }) {
-  const [login, setLogin] = useState(true); //true
-  const [googleSignIn, setGoogleSignIn] = useState(false); //false
+  const [login, setLogin] = useState(true); 
+  const [googleSignIn, setGoogleSignIn] = useState(false); 
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,9 +22,8 @@ export default function SignInCanvas({ show, handleClose }) {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPass, setShowPass] = useState(false);
-  // const [isGoogleLogin, setIsGoogleLogin] = useState(false);
   const [error, setError] = useState(null);
-  const [forgotPasswordMode, setForgotPasswordMode] = useState(""); //""
+  const [forgotPasswordMode, setForgotPasswordMode] = useState(""); 
 
   const userData = useSelector((state) => state.authSlice.userData);
 
@@ -57,7 +56,6 @@ export default function SignInCanvas({ show, handleClose }) {
     e.preventDefault();
     setError(null);
     if (!login && !validateMobile()) return;
-    // setMessage(null);
 
     try {
       const url = login
@@ -354,7 +352,6 @@ export default function SignInCanvas({ show, handleClose }) {
           </div>
 
           {error && <p className="error-msg">{error}</p>}
-          {/* {message && <p className="success-msg">{message}</p>} */}
 
           <div className="form-container">
             {!login && !googleSignIn && (
@@ -449,7 +446,6 @@ export default function SignInCanvas({ show, handleClose }) {
               <button
                 className="google-btn"
                 onClick={(e) => {
-                  // setIsGoogleLogin(true);
                   handleGoogleAuth(e , true);
                 }}
               >

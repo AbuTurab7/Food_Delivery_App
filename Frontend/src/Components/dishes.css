@@ -21,7 +21,6 @@
 }
 .dishes-img-container{
     display: flex;
-    /* justify-content: center; */
     flex-direction: row;
     margin: 0 25px 0 25px;
     transition-duration: 1000ms;

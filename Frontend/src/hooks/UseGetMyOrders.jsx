@@ -6,7 +6,6 @@ import { setMyOrders } from "../Utilities/authSlice";
 
 export const UseGetMyOrders = () => {
   const userData = useSelector((state) => state.authSlice.userData);
-  // const orderData = useSelector((state) => state.authSlice.myOrders);
   const dispatch = useDispatch();
   useEffect(() => {
     const fetchOrders = async () => {
@@ -15,9 +14,7 @@ export const UseGetMyOrders = () => {
           credentials: "include",
         });
         const result = await res.json();
-        dispatch(setMyOrders(result));
-        console.log(result);
-        
+        dispatch(setMyOrders(result));        
       } catch (error) {
         console.log("Error in fetch orders : ", error);
       }

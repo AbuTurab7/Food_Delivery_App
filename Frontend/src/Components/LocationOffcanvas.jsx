@@ -98,7 +98,6 @@ export default function LocationOffcanvas({
                     <li
                       key={i}
                       onClick={() => {
-                        console.log(search);
                         setRecentSearchData(search);
                         setInputValue("");
                         fetchCoords(search?.place_id);
@@ -139,7 +138,6 @@ export default function LocationOffcanvas({
                       <li
                         key={i}
                         onClick={() => {
-                          console.log(search);
                           fetchCoords(search?.place_id);
                         }}
                       >

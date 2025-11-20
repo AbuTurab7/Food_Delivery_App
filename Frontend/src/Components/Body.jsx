@@ -25,7 +25,6 @@ export default function Body() {
         `https://swiggy-netfily-proxy.netlify.app/.netlify/functions/swiggy?type=restaurants&lat=${lat}&lng=${lng}`
       );
       const result = await res.json();
-      console.log(result);
       setImages(result?.data?.cards[0]?.card?.card?.imageGridCards?.info);
       setData(result?.data?.cards[1]?.card?.card);
       setRestaurants(result?.data?.cards);

@@ -12,7 +12,6 @@ export const UseGetCurrentUser = async () => {
                         credentials: "include"
                     });
                     const result = await res.json();
-                    console.log(result);
                     if(result.userId){
                         dispatch(addUser(result));
                     }

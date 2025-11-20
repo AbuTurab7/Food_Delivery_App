@@ -73,8 +73,7 @@ export function CheckOutPage() {
         }`
       );
       const result = await res.json();
-      // console.log(result);
-
+     
       const address = result?.results?.[0]?.formatted || "Unknown location";
       dispatch(setAddress(address));
     } catch (err) {
@@ -120,8 +119,6 @@ export function CheckOutPage() {
       totalAmount: toPay,
       paymentMode,
     };
-
-    // console.log("Order Payload:", orderPayload);
 
     try {
       const res = await fetch(`${serverURL}/api/place-order`, {

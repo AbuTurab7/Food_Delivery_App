@@ -39,7 +39,7 @@ export default function Menu({ menu, restInfo }) {
             });
             return filteredItems.length > 0 ? { ...cat, itemCards: filteredItems } : null;
           })
-          .filter(Boolean); // remove empty categories
+          .filter(Boolean); 
 
         return filteredCategories.length > 0
           ? { ...section, card: { ...section.card, card: { ...card, categories: filteredCategories } } }
@@ -48,7 +48,7 @@ export default function Menu({ menu, restInfo }) {
 
       return section;
     })
-    .filter(Boolean); // remove empty sections
+    .filter(Boolean); 
 
   return (
     <div className="restaurant-menu-container">
